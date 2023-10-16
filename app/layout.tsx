@@ -3,8 +3,9 @@ import { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { Providers } from "./providers";
-import { Navbar } from "@/components/navbar";
+import { LeftSidebar } from "@/components/leftSidebar/LeftSidebar";
 import clsx from "clsx";
+import RightSidebar from "@/components/rightSidebar/RightSidebar";
 
 export const metadata: Metadata = {
      title: {
@@ -27,11 +28,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
      return (
           <html lang="en" suppressHydrationWarning>
                <head />
-               <body className={clsx("min-h-screen bg-background font-sans antialiased", fontSans.variable)}>
+               <body className={clsx("min-h-screen font-sans antialiased bg-slate-200", fontSans.variable)}>
                     <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-                         <div className="relative flex flex-col h-screen">
-                              <Navbar />
-                              <main className="container flex-grow px-6 pt-16 mx-auto max-w-7xl">{children}</main>
+                         <div className="relative flex items-start justify-between h-full gap-2 py-2 mx-auto lg:w-3/4">
+                              <LeftSidebar />
+                              <main className="flex-grow h-auto col-span-2 p-4 bg-white rounded-lg shadow-lg">{children}</main>
+                              <RightSidebar />
                          </div>
                     </Providers>
                </body>
