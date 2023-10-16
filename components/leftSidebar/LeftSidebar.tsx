@@ -5,8 +5,7 @@ import NextLink from "next/link";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { FaUser } from "react-icons/fa";
 import { subtitle } from "../primitives";
-import {SlSettings} from "react-icons/Sl"
-import {FiHelpCircle} from "react-icons/fi"
+import {FiHelpCircle, FiSettings} from "react-icons/fi"
 import {RxInfoCircled} from "react-icons/rx"
 import {Divider} from "@nextui-org/react";
 
@@ -31,7 +30,7 @@ export const LeftSidebar = () => {
                <div className="flex items-center justify-between">
                     <ThemeSwitch  />
                     <Divider orientation="vertical" />
-                    <SlSettings className="text-xl" />
+                    <FiSettings className="text-xl" />
                     <Divider orientation="vertical" />
                     <FiHelpCircle className="text-xl"  />
                     <Divider orientation="vertical" />
