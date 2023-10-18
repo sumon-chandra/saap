@@ -45,3 +45,11 @@ export const subtitle = tv({
           fullWidth: true,
      },
 });
+
+export const inputBox = tv({
+     base: "border border-green-300 focus:outline-0 focus:ring-2 ring-green-500 dark:ring-gray-200 w-full py-2 px-3 rounded-md",
+})
+
+export const submitButton = tv({
+     base: "bg-green"
+})

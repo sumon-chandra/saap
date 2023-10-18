@@ -1,4 +1,5 @@
 "use client"
+import { inputBox } from "@/components/primitives";
 import clsx from "clsx";
 import { FC } from "react";
 import { UseFormRegister, FieldValues, FieldErrors } from "react-hook-form";
@@ -16,7 +17,7 @@ interface InputProps {
 const Input: FC<InputProps> = ({ label, errors, id, register, disabled, required, type }) => {
     return (
         <div>
-            <label htmlFor={id} className="block text-sm font-medium leading-6 text-gray-900">
+            <label htmlFor={id} className="block text-sm font-medium leading-6 text-gray-900 md:text-lg">
                 {label}
             </label>
             <div className="mt-2">
@@ -26,31 +27,7 @@ const Input: FC<InputProps> = ({ label, errors, id, register, disabled, required
                     autoComplete={id}
                     disabled={disabled}
                     {...register(id, { required })}
-                    className={clsx(
-                        `
-                     form-input
-                     block
-                     w-full 
-                     rounded-md
-                     border-0
-                     px-2
-                     py-1.5
-                     text-gray-900
-                     shadow-sm
-                     ring-1
-                     ring:inset
-                     ring-gray-300
-                     placeholder:text-gray-400
-                     focus:ring-2
-                     focus:ring-inset
-                     focus:ring-sky-600
-                     sm:text-sm
-                     sm:leading-6
-                     dark:bg-[#e9e9e9]
-                     `,
-                        errors[id] && "focus:ring-red-500",
-                        disabled && "opacity-50 cursor-default"
-                    )}
+                    className={inputBox()}
                 />
             </div>
         </div>
