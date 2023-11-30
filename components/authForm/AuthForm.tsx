@@ -7,6 +7,7 @@ import React, { useCallback, useState } from 'react'
 import { FieldValues, SubmitHandler, useForm, } from 'react-hook-form'
 import { BsFacebook, BsGoogle } from 'react-icons/bs'
 import { toast } from 'sonner'
+import axios from "axios"
 
 type Variant = "LOGIN" | "REGISTER"
 interface AuthFormProps {
@@ -36,11 +37,25 @@ const AuthForm = ({ isOpen, onClose }: AuthFormProps) => {
         }
     })
 
-    const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         try {
-            // setIsLoading(true)
+            setIsLoading(true)
             if (variant === "REGISTER") {
-                // TODO: Handle registration
+                axios.post("/api/register", data)
+                    .then(response => {
+                        toast.success(`Welcome ${response?.data?.name} !!`)
+                        reset()
+                    })
+                    .catch((error: any) => {
+                        console.log("Registration error :", error);
+                        if (error?.response?.data !== "") {
+                            toast.error(error?.response?.data)
+                        } else {
+                            toast.error("Registration failed!!")
+                        }
+                        setIsLoading(false);
+                    })
+                    .finally(() => setIsLoading(false));
             }
             if (variant === "LOGIN") {
                 // TODO: Handle login
