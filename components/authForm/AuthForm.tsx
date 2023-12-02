@@ -76,10 +76,21 @@ const AuthForm = ({ isOpen, onClose }: AuthFormProps) => {
         }
     }
 
-    const socialAction = (action: String) => {
+    const socialAction = (action: string) => {
         try {
             setIsLoading(true)
-            // TODO: Implement Social login - Google, Facebook, Twitter and others
+            signIn(action, { redirect: false })
+                .then((response) => {
+                    if (response?.error) {
+                        toast.error("Something went wrong, Try Again!");
+                    }
+                    if (response?.ok) {
+                        toast.success("Logged in successfully");
+                    }
+                })
+                .catch(() => {
+                    toast.error("Something went wrong, Please try again")
+                })
         } catch (error) {
             toast.error("Something went wrong, Please try again")
         }

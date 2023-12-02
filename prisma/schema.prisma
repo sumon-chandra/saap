@@ -12,10 +12,11 @@ datasource db {
 
 model User {
   id             String    @id @default(auto()) @map("_id") @db.ObjectId
-  userName       String    @unique
+  userName       String?   @unique
   name           String
   email          String    @unique
-  hashedPassword String
+  hashedPassword String?
+  emailVerified  DateTime?
   image          String?
   coverImage     String?
   createdAt      DateTime? @default(now())
