@@ -5,9 +5,10 @@ import SocialAuthButton from '@/components/authForm/SocialAuthButton'
 import { Button, Divider, Modal, ModalBody, ModalContent, ModalHeader } from '@nextui-org/react'
 import React, { useCallback, useState } from 'react'
 import { FieldValues, SubmitHandler, useForm, } from 'react-hook-form'
-import { BsFacebook, BsGoogle } from 'react-icons/bs'
+import { BsGoogle } from 'react-icons/bs'
 import { toast } from 'sonner'
 import axios from "axios"
+import { signIn, useSession } from "next-auth/react"
 
 type Variant = "LOGIN" | "REGISTER"
 interface AuthFormProps {
@@ -18,6 +19,7 @@ interface AuthFormProps {
 const AuthForm = ({ isOpen, onClose }: AuthFormProps) => {
     const [variant, setVariant] = useState<Variant>("LOGIN")
     const [isLoading, setIsLoading] = useState(false)
+    const { data, status } = useSession()
 
     const toggleVariant = useCallback(() => {
         if (variant === "LOGIN") {
@@ -29,7 +31,12 @@ const AuthForm = ({ isOpen, onClose }: AuthFormProps) => {
     }, [variant])
 
 
-    const { register, reset, handleSubmit, formState: { errors } } = useForm<FieldValues>({
+    const {
+        register,
+        reset,
+        handleSubmit,
+        formState: { errors }
+    } = useForm<FieldValues>({
         defaultValues: {
             name: "",
             email: "",
@@ -42,9 +49,12 @@ const AuthForm = ({ isOpen, onClose }: AuthFormProps) => {
             setIsLoading(true)
             if (variant === "REGISTER") {
                 axios.post("/api/register", data)
-                    .then(response => {
+                    .then(async (response) => {
                         toast.success(`Welcome ${response?.data?.name} !!`)
                         reset()
+                        const signInResponse = await signIn("credentials", data)
+                        console.log(signInResponse);
+
                     })
                     .catch((error: any) => {
                         console.log("Registration error :", error);
@@ -78,7 +88,7 @@ const AuthForm = ({ isOpen, onClose }: AuthFormProps) => {
     return (
         <Modal
             backdrop='blur'
-            isOpen={isOpen}
+            isOpen={status === "unauthenticated"}
             onClose={onClose}
             isDismissable={false}
             size='3xl'
@@ -120,8 +130,9 @@ const AuthForm = ({ isOpen, onClose }: AuthFormProps) => {
                                     <Button
                                         type="submit"
                                         color='success'
-                                        className='w-full font-bold text-white'
-                                        disabled={isLoading}
+                                        isLoading={isLoading || status === "loading"}
+                                        className='w-full font-bold text-white disabled:opacity-50 disabled:cursor-not-allowed'
+                                        disabled={isLoading || status === "loading"}
                                     >
                                         {variant === "LOGIN" ? "Login" : "Register"}
                                     </Button>
@@ -137,11 +148,6 @@ const AuthForm = ({ isOpen, onClose }: AuthFormProps) => {
                                     icon={BsGoogle}
                                     onClick={() => socialAction("google")}
                                 />
-                                <SocialAuthButton
-                                    icon={BsFacebook}
-                                    onClick={() => socialAction("facebook")}
-                                />
-
                             </div>
                             <div className="flex justify-center gap-2 px-2 mt-6 text-sm text-gray-500">
                                 <div>{variant === "LOGIN" ? "New to SAAP? " : "Already have an account?"}</div>
