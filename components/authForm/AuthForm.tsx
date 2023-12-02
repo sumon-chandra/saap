@@ -1,11 +1,11 @@
 "use client"
 
-import Input from '@/ui/Input'
+import InputBox from '@/ui/InputBox'
 import SocialAuthButton from '@/components/authForm/SocialAuthButton'
 import { Button, Divider, Modal, ModalBody, ModalContent, ModalHeader } from '@nextui-org/react'
 import React, { useCallback, useState } from 'react'
 import { FieldValues, SubmitHandler, useForm, } from 'react-hook-form'
-import { BsGoogle } from 'react-icons/bs'
+import { FcGoogle } from 'react-icons/fc'
 import { toast } from 'sonner'
 import { useSession } from "next-auth/react"
 import { handleLogin, handleRegistration, socialLogin } from './actions/authActions'
@@ -96,7 +96,7 @@ const AuthForm = ({ isOpen, onClose }: AuthFormProps) => {
                         <ModalBody className='w-full mx-auto md:w-1/2'>
                             <form onSubmit={handleSubmit(onSubmit)} >
                                 {variant === "REGISTER" && (
-                                    <Input
+                                    <InputBox
                                         label='Name'
                                         type="text"
                                         errors={errors}
@@ -104,14 +104,14 @@ const AuthForm = ({ isOpen, onClose }: AuthFormProps) => {
                                         register={register}
                                     />
                                 )}
-                                <Input
+                                <InputBox
                                     label='Email'
                                     register={register}
                                     errors={errors}
                                     id='email'
                                     type='email'
                                 />
-                                <Input
+                                <InputBox
                                     label='Password'
                                     register={register}
                                     errors={errors}
@@ -121,9 +121,8 @@ const AuthForm = ({ isOpen, onClose }: AuthFormProps) => {
                                 <div className='w-full mt-4'>
                                     <Button
                                         type="submit"
-                                        color='success'
                                         isLoading={isLoading || status === "loading"}
-                                        className='w-full font-bold text-white disabled:opacity-50 disabled:cursor-not-allowed'
+                                        className='w-full py-6 font-bold md:text-xl disabled:opacity-50 disabled:cursor-not-allowed'
                                         disabled={isLoading || status === "loading"}
                                     >
                                         {variant === "LOGIN" ? "Login" : "Register"}
@@ -132,14 +131,16 @@ const AuthForm = ({ isOpen, onClose }: AuthFormProps) => {
                             </form>
                             <div className='flex items-center justify-center gap-5 mt-5'>
                                 <Divider orientation='horizontal' className='w-20' />
-                                <span>Or continue with</span>
+                                <span>Or</span>
                                 <Divider orientation='horizontal' className='w-20' />
                             </div>
                             <div className='mt-5 space-y-2'>
                                 <SocialAuthButton
-                                    icon={BsGoogle}
+                                    icon={FcGoogle}
                                     onClick={() => handleSocialLogin("google")}
-                                />
+                                >
+                                    Continue with
+                                </SocialAuthButton>
                             </div>
                             <div className="flex justify-center gap-2 px-2 mt-6 text-sm text-gray-500">
                                 <div>{variant === "LOGIN" ? "New to SAAP? " : "Already have an account?"}</div>

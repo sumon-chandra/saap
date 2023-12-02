@@ -1,21 +1,25 @@
 "use client";
-import { FC } from "react";
+import { Button } from "@nextui-org/react";
+import { FC, ReactNode } from "react";
 import { IconType } from "react-icons";
 
 interface SocialAuthButtonProps {
     icon: IconType;
     onClick: () => void;
+    children: ReactNode
 }
 
-const SocialAuthButton: FC<SocialAuthButtonProps> = ({ icon: Icon, onClick }) => {
+const SocialAuthButton: FC<SocialAuthButtonProps> = ({ children, icon: Icon, onClick }) => {
     return (
-        <button
+        <Button
             type="button"
             onClick={onClick}
-            className="inline-flex justify-center w-full px-4 py-2 text-xl text-green-500 rounded-md shadow-sm bg-green-50 ring-1 ring-inset ring-green-600"
+            variant="ghost"
+            className="flex items-center justify-center w-full gap-3 px-4 py-8 text-sm rounded-md shadow-sm md:text-xl"
         >
-            <Icon />
-        </button>
+            <span>{children}</span>
+            <Icon size={20} />
+        </Button>
     );
 };
 
