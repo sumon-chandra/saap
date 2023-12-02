@@ -7,8 +7,8 @@ import React, { useCallback, useState } from 'react'
 import { FieldValues, SubmitHandler, useForm, } from 'react-hook-form'
 import { BsGoogle } from 'react-icons/bs'
 import { toast } from 'sonner'
-import axios from "axios"
-import { signIn, useSession } from "next-auth/react"
+import { useSession } from "next-auth/react"
+import { handleLogin, handleRegistration, socialLogin } from './actions/authActions'
 
 type Variant = "LOGIN" | "REGISTER"
 interface AuthFormProps {
@@ -48,52 +48,33 @@ const AuthForm = ({ isOpen, onClose }: AuthFormProps) => {
         try {
             setIsLoading(true)
             if (variant === "REGISTER") {
-                axios.post("/api/register", data)
-                    .then(async (response) => {
-                        toast.success(`Welcome ${response?.data?.name} !!`)
-                        reset()
-                        const signInResponse = await signIn("credentials", data)
-                        console.log(signInResponse);
-
-                    })
-                    .catch((error: any) => {
-                        console.log("Registration error :", error);
-                        if (error?.response?.data !== "") {
-                            toast.error(error?.response?.data)
-                        } else {
-                            toast.error("Registration failed!!")
-                        }
-                        setIsLoading(false);
-                    })
-                    .finally(() => setIsLoading(false));
+                handleRegistration({
+                    data,
+                    reset,
+                    handleLoading: setIsLoading
+                })
             }
+
             if (variant === "LOGIN") {
-                // TODO: Handle login
+                handleLogin({
+                    data,
+                    reset,
+                    handleLoading: setIsLoading
+                })
             }
 
         } catch (error) {
+            console.log("Authentication Failed!!", error);
             toast.error("Something went wrong, Please try again")
+            setIsLoading(false)
         }
     }
 
-    const socialAction = (action: string) => {
-        try {
-            setIsLoading(true)
-            signIn(action, { redirect: false })
-                .then((response) => {
-                    if (response?.error) {
-                        toast.error("Something went wrong, Try Again!");
-                    }
-                    if (response?.ok) {
-                        toast.success("Logged in successfully");
-                    }
-                })
-                .catch(() => {
-                    toast.error("Something went wrong, Please try again")
-                })
-        } catch (error) {
-            toast.error("Something went wrong, Please try again")
-        }
+    const handleSocialLogin = (action: string) => {
+        socialLogin({
+            action,
+            handleLoading: setIsLoading
+        })
     }
 
     return (
@@ -157,7 +138,7 @@ const AuthForm = ({ isOpen, onClose }: AuthFormProps) => {
                             <div className='mt-5 space-y-2'>
                                 <SocialAuthButton
                                     icon={BsGoogle}
-                                    onClick={() => socialAction("google")}
+                                    onClick={() => handleSocialLogin("google")}
                                 />
                             </div>
                             <div className="flex justify-center gap-2 px-2 mt-6 text-sm text-gray-500">
