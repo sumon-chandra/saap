@@ -27,10 +27,6 @@ const InputBox: FC<InputBoxProps> = ({ label, errors, id, register, disabled, re
                 radius="sm"
                 disabled={disabled}
                 {...register(id, { required })}
-                className={clsx(
-                    "border-2",
-                    !!errors && "border-red-500"
-                )}
             />
         </div>
     )

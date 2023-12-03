@@ -19,7 +19,7 @@ interface AuthFormProps {
 const AuthForm = ({ isOpen, onClose }: AuthFormProps) => {
     const [variant, setVariant] = useState<Variant>("LOGIN")
     const [isLoading, setIsLoading] = useState(false)
-    const { data, status } = useSession()
+    const { data: session, status } = useSession()
 
     const toggleVariant = useCallback(() => {
         if (variant === "LOGIN") {
@@ -81,7 +81,7 @@ const AuthForm = ({ isOpen, onClose }: AuthFormProps) => {
         <Modal
             backdrop='blur'
             isOpen={status === "unauthenticated"}
-            onClose={onClose}
+            onClose={onClose || status === "authenticated"}
             isDismissable={false}
             size='3xl'
         >
