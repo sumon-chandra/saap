@@ -3,7 +3,7 @@ import NextLink from "next/link";
 import { FaUser } from "react-icons/fa";
 const RightSidebar = () => {
      return (
-          <aside className="sticky  top-2 w-[250px] right-0 hidden lg:flex h-[97.5vh] flex-col gap-10 p-4 bg-white dark:bg-[#1F232E] rounded-lg shadow-lg">
+          <aside className="sticky  top-0 w-[250px] right-0 hidden lg:flex h-[100dvh] flex-col gap-10 p-4 bg-white dark:bg-[#1F232E] rounded-lg shadow-lg">
                <header className="flex items-center justify-start gap-1">
                     <div>
                          <FaUser />

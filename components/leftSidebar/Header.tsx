@@ -7,6 +7,7 @@ import { FaUser } from 'react-icons/fa';
 const Header = () => {
     const { data: session, status } = useSession()
     console.log({ session, status });
+    const username = session?.user.userName || session?.user.id.slice(0, 10)
 
     return (
         <header className="space-y-4">
@@ -16,13 +17,14 @@ const Header = () => {
                         <Avatar
                             src={session?.user?.image!}
                             size='md'
+                            isBordered
                         >
                             {!session?.user?.image || <FaUser />}
                         </Avatar>
                     </div>
                     <div className='flex flex-col items-start '>
-                        <h3 className='text-lg font-semibold leading-5'>{session?.user?.name}</h3>
-                        {session?.user?.userName && <h5 className='text-sm'>@username</h5>}
+                        <h3 className='text-[16px] font-bold leading-5'>{session?.user?.name}</h3>
+                        <h5 className='text-sm font-semibold text-gray-500'>@{username}</h5>
                     </div>
                 </div>
             </Link>

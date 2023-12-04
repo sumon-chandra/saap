@@ -13,7 +13,7 @@ export const LeftSidebar = () => {
 
      return (
           <>
-               <aside className="sticky top-2 w-[250px] left-0 hidden sm:flex h-[97.5dvh] flex-col gap-10 p-4 bg-white dark:bg-[#1F232E] rounded-lg shadow-lg">
+               <aside className="sticky top-0 w-[250px] left-0 hidden sm:flex h-[100dvh] flex-col gap-10 p-4 bg-white dark:bg-[#1F232E] rounded-lg shadow-lg">
                     <div className="relative h-full">
                          <Header />
                          <nav className="flex flex-col gap-4">
