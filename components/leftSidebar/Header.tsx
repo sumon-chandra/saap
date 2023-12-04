@@ -6,7 +6,7 @@ import { FaUser } from 'react-icons/fa';
 
 const Header = () => {
     const { data: session, status } = useSession()
-    console.log({ session, status });
+    // console.log({ session, status });
     const username = session?.user.userName || session?.user.id.slice(0, 10)
 
     return (
