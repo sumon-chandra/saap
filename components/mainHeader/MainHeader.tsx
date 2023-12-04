@@ -10,7 +10,7 @@ const MainHeader = () => {
             <div className="flex justify-between py-3">
                 <div className="flex-1" />
                 <div className="flex-1 select-none">
-                    <h2 className="text-2xl font-bold text-center text-gray-600">SAAP</h2>
+                    <h2 className="text-2xl font-bold text-center text-saap-primary">SAAP</h2>
                 </div>
                 <div className="flex items-center justify-end flex-1 gap-3">
                     <div>
