@@ -6,7 +6,7 @@ import { RiNotification2Line, RiSearch2Line } from "react-icons/ri";
 
 const MainHeader = () => {
     return (
-        <header className="sticky top-0 dark:bg-[#1F232E] bg-white rounded-b-md">
+        <header className="sticky top-0 bg-saap-bg-primary dark:bg-saap-bg-dark-secondary rounded-b-md">
             <div className="flex justify-between py-3">
                 <div className="flex-1" />
                 <div className="flex-1 select-none">

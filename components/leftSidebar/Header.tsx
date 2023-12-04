@@ -22,9 +22,9 @@ const Header = () => {
                             {!session?.user?.image || <FaUser />}
                         </Avatar>
                     </div>
-                    <div className='flex flex-col items-start '>
-                        <h3 className='text-[16px] font-bold leading-5'>{session?.user?.name}</h3>
-                        <h5 className='text-sm font-semibold text-gray-500'>@{username}</h5>
+                    <div className='flex flex-col items-start'>
+                        <h3 className='text-[16px] font-bold leading-5 text-saap-text-primary dark:text-saap-text-dark-primary'>{session?.user?.name}</h3>
+                        <h5 className='text-sm font-semibold text-saap-text-secondary dark:text-saap-text-dark-secondary'>@{username}</h5>
                     </div>
                 </div>
             </Link>

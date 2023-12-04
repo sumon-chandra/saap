@@ -12,8 +12,6 @@ module.exports = {
     colors: {
       "saap-primary": "rgb(var(--primary))",
       "saap-secondary": "rgb(var(--secondary))",
-      "saap-text-primary": "rgb(var(--text-primary))",
-      "saap-text-secondary": "rgb(var(--text-secondary))",
       "saap-bg-primary": "rgb(var(--bg-primary))",
       "saap-bg-secondary": "rgb(var(--bg-secondary))",
       "saap-bg-dark-primary": "rgb(var(--bg-dark-primary))",

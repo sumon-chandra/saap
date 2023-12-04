@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <html lang="en" suppressHydrationWarning>
                <head />
                <body className={clsx(
-                    "min-h-screen font-sans antialiased bg-slate-200 dark:bg-[#0f172a]",
+                    "min-h-screen font-sans antialiased bg-saap-bg-secondary dark:bg-saap-bg-dark-primary",
                     fontSans.variable
                )}>
                     <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
@@ -42,7 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                                    className="flex flex-col flex-grow h-auto gap-2 bg-transparent rounded-lg"
                               >
                                    <MainHeader />
-                                   <div className="overflow-hidden rounded-md dark:bg-[#1F232E] bg-white p-4">
+                                   <div className="p-4 overflow-hidden rounded-md bg-saap-bg-primary dark:bg-saap-bg-dark-secondary">
                                         {children}
                                    </div>
                               </main>
