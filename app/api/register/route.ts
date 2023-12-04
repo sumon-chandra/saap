@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import prisma from "@/lib/prismadb";
-import { generateUserName } from "@/utils/userNameGenerator";
+import { generateUserName } from "@/utils/generateUsername";
 
 export async function POST(request: Request) {
     try {
