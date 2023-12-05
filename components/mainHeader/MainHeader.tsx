@@ -1,13 +1,14 @@
 "use client"
 
-import { Button } from "@nextui-org/react";
 import { RiNotification2Line, RiSearch2Line } from "react-icons/ri";
+import { IoCreateOutline } from "react-icons/io5";
 import HeaderIcon from "./HeaderIcon";
 
 
 const MainHeader = () => {
     const handleSearch = () => { }
     const handleNotification = () => { }
+    const handleCreatePost = () => { }
 
     return (
         <header className="sticky top-0 bg-saap-bg-primary dark:bg-saap-bg-dark-secondary rounded-b-md">
@@ -19,9 +20,18 @@ const MainHeader = () => {
                 <div className="flex items-center justify-end flex-1 gap-3 mr-4">
                     <div>
                         <HeaderIcon
+                            Icon={IoCreateOutline}
+                            iconSize={20}
+                            onClick={handleCreatePost}
+                            tooltipContent="Create post"
+                        />
+                    </div>
+                    <div>
+                        <HeaderIcon
                             Icon={RiSearch2Line}
                             iconSize={20}
                             onClick={handleSearch}
+                            tooltipContent="Search"
                         />
                     </div>
                     <div>
@@ -29,6 +39,7 @@ const MainHeader = () => {
                             Icon={RiNotification2Line}
                             iconSize={20}
                             onClick={handleNotification}
+                            tooltipContent="Notification"
                         />
                     </div>
                 </div>
