@@ -1,7 +1,8 @@
-import { nextui } from '@nextui-org/theme'
+const { nextui } = require("@nextui-org/react");
+import { withUt } from "uploadthing/tw";
 
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+module.exports = withUt({
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -29,4 +30,4 @@ module.exports = {
     nextui(),
     require("@tailwindcss/forms")({ strategy: "class" })
   ],
-}
+})
