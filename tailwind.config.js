@@ -10,6 +10,7 @@ module.exports = {
   ],
   theme: {
     colors: {
+      "saap-transparent": "rgba(255, 255, 255, .0)",
       "saap-primary": "rgb(var(--primary))",
       "saap-secondary": "rgb(var(--secondary))",
       "saap-bg-primary": "rgb(var(--bg-primary))",

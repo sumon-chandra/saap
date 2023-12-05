@@ -3,12 +3,16 @@
 import { RiNotification2Line, RiSearch2Line } from "react-icons/ri";
 import { IoCreateOutline } from "react-icons/io5";
 import HeaderIcon from "./HeaderIcon";
+import { useRouter } from "next/navigation";
 
 
 const MainHeader = () => {
+    const router = useRouter()
     const handleSearch = () => { }
     const handleNotification = () => { }
-    const handleCreatePost = () => { }
+    const handleCreatePost = () => {
+        router.push("/post/create")
+    }
 
     return (
         <header className="sticky top-0 bg-saap-bg-primary dark:bg-saap-bg-dark-secondary rounded-b-md">
