@@ -1,6 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    reactStrictMode: false
+    reactStrictMode: false,
+    images: {
+        domains: [
+            "files.edgestore.dev"
+        ]
+    }
 }
 
 module.exports = nextConfig
