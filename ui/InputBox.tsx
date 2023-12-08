@@ -1,6 +1,4 @@
 "use client"
-import { inputBox } from "@/components/primitives";
-import clsx from "clsx";
 import { FC } from "react";
 import { UseFormRegister, FieldValues, FieldErrors } from "react-hook-form";
 import { Input } from "@nextui-org/react";
