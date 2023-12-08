@@ -4,9 +4,9 @@ import { TbMail } from "react-icons/tb";
 import NavItem from "./NavItem"
 import { useSession } from "next-auth/react"
 
-const Skeleton = ({ key }: { key: string }) => {
+const Skeleton = () => {
     return (
-        <div key={key} className="animate-pulse flex space-x-4">
+        <div className="animate-pulse flex space-x-4">
             <div className="rounded-full bg-default-200 dark:bg-saap-bg-dark-primary py-6 w-full"></div>
         </div>
     )

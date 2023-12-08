@@ -3,7 +3,8 @@ const nextConfig = {
     reactStrictMode: false,
     images: {
         domains: [
-            "files.edgestore.dev"
+            "files.edgestore.dev",
+            "i.ibb.co"
         ]
     }
 }
