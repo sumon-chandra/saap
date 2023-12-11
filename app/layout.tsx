@@ -3,11 +3,7 @@ import { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { Providers } from "./providers";
-import { LeftSidebar } from "@/components/leftSidebar/LeftSidebar";
 import clsx from "clsx";
-import RightSidebar from "@/components/rightSidebar/RightSidebar";
-import { Toaster } from "sonner"
-import MainHeader from "@/components/mainHeader/MainHeader";
 
 export const metadata: Metadata = {
      title: {
@@ -35,19 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     fontSans.variable
                )}>
                     <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-                         <Toaster richColors position="top-center" />
-                         <div className="relative flex items-start justify-between h-full gap-2 mx-auto lg:w-3/4">
-                              <LeftSidebar />
-                              <main
-                                   className="flex flex-col flex-grow h-auto gap-2 bg-transparent rounded-lg"
-                              >
-                                   <MainHeader />
-                                   <div className="p-4 overflow-hidden rounded-md bg-saap-bg-primary dark:bg-saap-bg-dark-secondary">
-                                        {children}
-                                   </div>
-                              </main>
-                              <RightSidebar />
-                         </div>
+                         {children}
                     </Providers>
                </body>
           </html>

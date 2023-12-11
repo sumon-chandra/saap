@@ -15,7 +15,7 @@ const MainHeader = () => {
     }
 
     return (
-        <header className="sticky top-0 bg-saap-bg-primary dark:bg-saap-bg-dark-secondary rounded-b-md">
+        <header className="sticky top-0 bg-saap-bg-primary dark:bg-saap-bg-dark-secondary rounded-b-md z-[999]">
             <div className="flex justify-between py-3">
                 <div className="flex-1" />
                 <div className="flex-1 select-none">
