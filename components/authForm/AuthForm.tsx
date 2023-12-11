@@ -80,8 +80,8 @@ const AuthForm = ({ isOpen, onClose }: AuthFormProps) => {
     return (
         <Modal
             backdrop='blur'
-            isOpen={status === "unauthenticated"}
-            onClose={onClose || status === "authenticated"}
+            // isOpen={status === "unauthenticated"}
+            // onClose={onClose || status === "authenticated"}
             isDismissable={false}
             size='3xl'
         >

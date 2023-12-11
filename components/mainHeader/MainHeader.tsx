@@ -4,6 +4,7 @@ import { RiNotification2Line, RiSearch2Line } from "react-icons/ri";
 import { IoCreateOutline } from "react-icons/io5";
 import HeaderIcon from "./HeaderIcon";
 import { useRouter } from "next/navigation";
+import HeaderAvatar from "./HeaderAvatar";
 
 
 const MainHeader = () => {
@@ -17,7 +18,9 @@ const MainHeader = () => {
     return (
         <header className="sticky top-0 bg-saap-bg-primary dark:bg-saap-bg-dark-secondary rounded-b-md z-[999]">
             <div className="flex justify-between py-3">
-                <div className="flex-1" />
+                <div className="flex-1 ps-4">
+                    <HeaderAvatar />
+                </div>
                 <div className="flex-1 select-none">
                     <h2 className="text-3xl font-bold text-center text-saap-primary">Saap.</h2>
                 </div>

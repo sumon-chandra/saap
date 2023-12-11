@@ -4,6 +4,7 @@ import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { Providers } from "./providers";
 import clsx from "clsx";
+import MainHeader from "@/components/mainHeader/MainHeader";
 
 export const metadata: Metadata = {
      title: {
@@ -31,6 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     fontSans.variable
                )}>
                     <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
+                         <MainHeader />
                          {children}
                     </Providers>
                </body>
