@@ -1,9 +1,8 @@
-import { Dispatch, FC, SetStateAction } from "react";
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure } from "@nextui-org/react";
+import { FC } from "react";
+import { Modal, ModalContent, ModalHeader, ModalFooter, Button } from "@nextui-org/react";
 import { ImWarning } from "react-icons/im";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
-
 
 interface ModalProps {
    isOpen: boolean;

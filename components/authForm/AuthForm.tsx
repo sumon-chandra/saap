@@ -1,6 +1,6 @@
 "use client"
 
-import InputBox from '@/ui/InputBox'
+import InputBox from '@/app/(auth)/components/InputBox'
 import SocialAuthButton from '@/components/authForm/SocialAuthButton'
 import { Button, Divider, Modal, ModalBody, ModalContent, ModalHeader } from '@nextui-org/react'
 import React, { useCallback, useState } from 'react'

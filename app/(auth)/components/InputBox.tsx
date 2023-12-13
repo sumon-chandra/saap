@@ -15,18 +15,20 @@ interface InputBoxProps {
 
 const InputBox: FC<InputBoxProps> = ({ label, errors, id, register, disabled, required, type }) => {
     return (
-        <div className="mt-2">
-            <Input
-                id={id}
-                type={type}
-                isRequired={id === "email" || id === "password"}
-                autoComplete={id}
-                label={label}
-                radius="sm"
-                disabled={disabled}
-                {...register(id, { required })}
-            />
-        </div>
+        <Input
+            id={id}
+            type={type}
+            isRequired={id === "email" || id === "password"}
+            autoComplete={id}
+            label={label}
+            variant="underlined"
+            disabled={disabled}
+            {...register(id, { required })}
+            classNames={{
+                input: "bg-saap-transparent"
+            }}
+            className="my-2"
+        />
     )
 }
 
