@@ -27,6 +27,7 @@ export default function RootLoading() {
                className='w-auto'
             />
          </div>
+         <h3>Content is loading</h3>
       </div>
    );
 }

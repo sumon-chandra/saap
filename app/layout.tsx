@@ -33,7 +33,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                )}>
                     <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
                          <MainHeader />
-                         {children}
+                         <main className="lg:px-0 px-4">
+                              {children}
+                         </main>
                     </Providers>
                </body>
           </html>

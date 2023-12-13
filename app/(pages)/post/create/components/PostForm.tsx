@@ -9,8 +9,8 @@ import { IoImage } from "react-icons/io5";
 import { useEdgeStore } from "@/lib/edgestore";
 import Image from "next/image";
 import { ImCancelCircle } from "react-icons/im";
-import useAutosizeTextArea from "@/app/hooks/useAutosizeTextarea";
 import { PiSpinnerLight } from "react-icons/pi";
+import useAutosizeTextArea from "@/hooks/useAutosizeTextarea";
 
 
 export interface PostProps {
