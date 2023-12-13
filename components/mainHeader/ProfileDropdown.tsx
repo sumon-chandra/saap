@@ -10,7 +10,7 @@ import { ThemeSwitch } from '../theme-switch'
 const ProfileDropdown = () => {
    const { isOpen, onOpen, onClose } = useDisclosure();
    const { data: session, status } = useSession()
-   console.log("Auth status :", status);
+   // console.log("Auth status :", status);
 
    const username = session?.user.userName || session?.user.id.slice(0, 10)
    return (

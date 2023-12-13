@@ -32,10 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     fontSans.variable
                )}>
                     <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-                         <MainHeader />
-                         <main className="lg:px-0 px-4">
-                              {children}
-                         </main>
+                         {children}
                     </Providers>
                </body>
           </html>

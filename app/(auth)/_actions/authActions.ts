@@ -1,5 +1,6 @@
 import axios from "axios";
 import { signIn } from "next-auth/react";
+import { redirect } from "next/navigation";
 import { FieldValues, UseFormReset } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -17,33 +18,30 @@ interface RegistrationProps {
 
 
 export const socialLogin = ({ action, handleLoading }: SocialLoginProps) => {
-    try {
-        handleLoading(true)
-        signIn(action, { redirect: false })
-            .then((response) => {
-                if (response?.error) {
-                    toast.error("Something went wrong, Try Again!");
-                }
-                if (response?.ok) {
-                    toast.success("Logged in successfully");
-                }
-            })
-            .catch(() => {
-                toast.error("Something went wrong, Please try again")
-            })
-    } catch (error) {
-        toast.error("Something went wrong, Please try again")
-    }
+    handleLoading(true)
+    const response = signIn(action, { redirect: false })
+        .then((response) => {
+            if (response?.error) {
+                toast.error("Something went wrong, Try Again!");
+            }
+            if (response?.ok) {
+                toast.success("Logged in successfully");
+                redirect("/")
+            }
+        })
+        .catch(() => {
+            toast.error("Something went wrong, Please try again")
+        })
+    return response;
 }
 
 export const handleRegistration = ({ data, reset, handleLoading }: RegistrationProps) => {
-    axios.post("/api/register", data)
+    const response = axios.post("/api/register", data)
         .then(async (response) => {
             toast.success(`Welcome ${response?.data?.name} !!`)
             reset()
             const signInResponse = await signIn("credentials", data)
             console.log(signInResponse);
-
         })
         .catch((error: any) => {
             console.log("Registration error :", error);
@@ -55,6 +53,7 @@ export const handleRegistration = ({ data, reset, handleLoading }: RegistrationP
             handleLoading(false);
         })
         .finally(() => handleLoading(false));
+    return response
 }
 
 export const handleLogin = ({ data, reset, handleLoading }: RegistrationProps) => {

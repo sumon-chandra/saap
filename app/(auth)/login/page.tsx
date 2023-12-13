@@ -7,24 +7,19 @@ import React, { useCallback, useState } from 'react'
 import { FieldValues, SubmitHandler, useForm, } from 'react-hook-form'
 import { FcGoogle } from 'react-icons/fc'
 import { toast } from 'sonner'
-import { useSession } from "next-auth/react"
-import { handleLogin, handleRegistration, socialLogin } from './actions/authActions'
+import { signIn, useSession } from "next-auth/react"
+import { socialLogin } from '../_actions/authActions'
+import { useRouter } from 'next/navigation'
 
-type Variant = "LOGIN" | "REGISTER"
 
 const LoginPage = () => {
-   const [variant, setVariant] = useState<Variant>("LOGIN")
    const [isLoading, setIsLoading] = useState(false)
    const { data: session, status } = useSession()
+   const router = useRouter()
 
-   const toggleVariant = useCallback(() => {
-      if (variant === "LOGIN") {
-         setVariant("REGISTER")
-      } else {
-         setVariant("LOGIN")
-      }
-      console.log(variant);
-   }, [variant])
+   const handleRedirect = () => {
+      router.push('/signup')
+   }
 
 
    const {
@@ -34,38 +29,28 @@ const LoginPage = () => {
       formState: { errors }
    } = useForm<FieldValues>({
       defaultValues: {
-         name: "",
          email: "",
          password: "",
       }
    })
 
    const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-      try {
-         setIsLoading(true)
-         if (variant === "REGISTER") {
-            handleRegistration({
-               data,
-               reset,
-               handleLoading: setIsLoading
-            })
-         }
-
-         if (variant === "LOGIN") {
-            handleLogin({
-               data,
-               reset,
-               handleLoading: setIsLoading
-            })
-         }
-
-      } catch (error) {
-         console.log("Authentication Failed!!", error);
-         toast.error("Something went wrong, Please try again")
-         setIsLoading(false)
-      }
+      signIn("credentials", { ...data, redirect: false })
+         .then((response) => {
+            if (response?.error) {
+               toast.error("Something went wrong, Try Again!");
+            }
+            if (response?.ok) {
+               toast.success("Logged in successfully");
+            }
+         })
+         .catch((error: any) => {
+            console.log("Authentication Failed!!", error);
+            toast.error("Something went wrong, Please try again")
+            setIsLoading(false)
+         })
+         .finally(() => setIsLoading(false))
    }
-
    const handleSocialLogin = (action: string) => {
       socialLogin({
          action,
@@ -76,15 +61,6 @@ const LoginPage = () => {
    return (
       <div>
          <form onSubmit={handleSubmit(onSubmit)} >
-            {variant === "REGISTER" && (
-               <InputBox
-                  label='Name'
-                  type="text"
-                  errors={errors}
-                  id="name"
-                  register={register}
-               />
-            )}
             <InputBox
                label='Email'
                register={register}
@@ -106,7 +82,7 @@ const LoginPage = () => {
                   className='w-full py-6 font-bold md:text-xl disabled:opacity-50 disabled:cursor-not-allowed'
                   disabled={isLoading || status === "loading"}
                >
-                  {variant === "LOGIN" ? "Login" : "Register"}
+                  Login
                </Button>
             </div>
          </form>
@@ -124,9 +100,9 @@ const LoginPage = () => {
             </SocialAuthButton>
          </div>
          <div className="flex justify-center gap-2 px-2 mt-6 text-sm text-gray-500">
-            <div>{variant === "LOGIN" ? "New to SAAP? " : "Already have an account?"}</div>
-            <div onClick={toggleVariant} className="font-bold underline cursor-pointer">
-               {variant === "LOGIN" ? "Create an account" : "Please Login"}
+            <div>New to SAAP?</div>
+            <div onClick={handleRedirect} className="font-bold underline cursor-pointer">
+               Create an account
             </div>
          </div>
       </div>

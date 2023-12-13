@@ -13,8 +13,9 @@ interface ModalProps {
 const ConfirmationModal: FC<ModalProps> = ({ isOpen, onClose }) => {
    const router = useRouter()
    const handleLogout = () => {
-      signOut({ redirect: false });
-      router.push('/login');
+      signOut({ redirect: false }).then(() => {
+         router.push('/login');
+      })
       onClose();
    }
    return (
