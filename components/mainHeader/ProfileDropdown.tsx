@@ -23,7 +23,7 @@ const ProfileDropdown = () => {
 
    return (
       <>
-         <Dropdown placement="bottom-start" className='bg-saap-bg-primary dark:bg-saap-bg-dark-primary'>
+         <Dropdown placement="bottom-start" className='bg-saap-bg-primary md:w-72 dark:bg-saap-bg-dark-primary'>
             <DropdownTrigger>
                <div className='inline-flex items-center justify-start gap-2 transition-transform cursor-pointer'>
                   <Avatar
