@@ -2,7 +2,8 @@ import { FC } from "react";
 import { Modal, ModalContent, ModalHeader, ModalFooter, Button } from "@nextui-org/react";
 import { ImWarning } from "react-icons/im";
 import { signOut } from "next-auth/react";
-import { useRouter } from "next/navigation";
+// import { useRouter } from 'next/navigation'
+import { useRouter } from 'next-nprogress-bar'; // This useRouter will helps us to display the progress bar on the top.;
 
 interface ModalProps {
    isOpen: boolean;

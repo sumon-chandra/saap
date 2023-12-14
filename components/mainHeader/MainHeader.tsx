@@ -3,7 +3,8 @@
 import { RiNotification2Line, RiSearch2Line } from "react-icons/ri";
 import { IoCreateOutline } from "react-icons/io5";
 import HeaderIcon from "./HeaderIcon";
-import { useRouter } from "next/navigation";
+// import { useRouter } from 'next/navigation'
+import { useRouter } from 'next-nprogress-bar'; // This useRouter will helps us to display the progress bar on the top.;
 import ProfileDropdown from "./ProfileDropdown";
 import Link from "next/link";
 
@@ -18,7 +19,7 @@ const MainHeader = () => {
 
     return (
         <header className="sticky top-0 bg-saap-bg-primary dark:bg-saap-bg-dark-secondary rounded-b-md z-[999]">
-            <div className="flex justify-between py-3 w-full md:w-3/4 lg:w-1/2 mx-auto">
+            <div className="flex justify-between py-3 mx-auto">
                 <div className="flex-1 ps-4">
                     <ProfileDropdown />
                 </div>
