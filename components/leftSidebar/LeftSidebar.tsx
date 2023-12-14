@@ -1,13 +1,8 @@
-"use client"
-
-import { useDisclosure } from "@nextui-org/react";
-import AuthForm from "../authForm/AuthForm";
 import Footer from "./Footer";
 import Header from "./Header";
 import NavList from "./nav/NavList";
 
 export const LeftSidebar = () => {
-     const { isOpen, onOpen, onClose } = useDisclosure();
 
      return (
           <>
@@ -18,8 +13,6 @@ export const LeftSidebar = () => {
                          <Footer />
                     </div>
                </aside>
-               {/* ======== Auth Form Modal ======== */}
-               <AuthForm onClose={onClose} isOpen={isOpen} />
           </>
      );
 };
