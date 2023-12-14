@@ -22,6 +22,7 @@ const ConfirmationModal: FC<ModalProps> = ({ isOpen, onClose }) => {
          backdrop="blur"
          isOpen={isOpen}
          onClose={onClose}
+         placement="center"
          className='bg-saap-bg-primary dark:bg-saap-bg-dark-primary'
          motionProps={{
             variants: {
