@@ -3,13 +3,13 @@
 import InputBox from '@/app/(auth)/components/InputBox'
 import SocialAuthButton from '@/app/(auth)/components/SocialAuthButton'
 import { Button, Divider, } from '@nextui-org/react'
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 import { FieldValues, SubmitHandler, useForm, } from 'react-hook-form'
 import { FcGoogle } from 'react-icons/fc'
 import { toast } from 'sonner'
 import { signIn, useSession } from "next-auth/react"
-import { socialLogin } from '../_actions/authActions'
-import { redirect, useRouter } from 'next/navigation'
+// import { useRouter } from 'next/navigation'
+import { useRouter } from 'next-nprogress-bar'; // This useRouter will helps us to display the progress bar on the top.
 import { PiSpinnerLight } from 'react-icons/pi'
 
 

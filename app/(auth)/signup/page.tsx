@@ -9,7 +9,8 @@ import { toast } from "sonner"
 import { socialLogin } from "../_actions/authActions"
 import SocialAuthButton from "@/app/(auth)/components/SocialAuthButton"
 import { FcGoogle } from "react-icons/fc"
-import { useRouter } from "next/navigation"
+// import { useRouter } from "next/navigation"
+import { useRouter } from 'next-nprogress-bar'; // This useRouter will helps us to display the progress bar on the top.
 import { PiSpinnerLight } from "react-icons/pi"
 
 const SignupPage = () => {
