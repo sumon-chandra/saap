@@ -18,7 +18,7 @@ const InputBox: FC<InputBoxProps> = ({ label, errors, id, register, disabled, re
         <Input
             id={id}
             type={type}
-            isRequired={id === "email" || id === "password"}
+            isRequired
             autoComplete={id}
             label={label}
             variant="underlined"

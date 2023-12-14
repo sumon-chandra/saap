@@ -7,6 +7,9 @@
     :root {
         --primary: 56, 189, 248;
         --secondary: 0, 149, 214;
+        --danger: 220, 53, 69;
+        --black: 0, 0, 0;
+        --warning: 255, 193, 7;
         --bg-primary: 255, 255, 255;
         --bg-secondary: 233, 237, 241;
         --bg-primary-light: 215, 242, 254;
@@ -15,7 +18,7 @@
         --text-primary: 15, 23, 42;
         --text-secondary: 51, 65, 85;
         --text-dark-primary: 226, 232, 240;
-        --text-dark-secondary: 147, 162, 183
+        --text-dark-secondary: 147, 162, 183;
     }
 }
 

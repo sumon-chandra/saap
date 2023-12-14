@@ -1,7 +1,7 @@
 "use client"
 
 import InputBox from '@/app/(auth)/components/InputBox'
-import SocialAuthButton from '@/components/authForm/SocialAuthButton'
+import SocialAuthButton from '@/app/(auth)/components/SocialAuthButton'
 import { Button, Divider, } from '@nextui-org/react'
 import React, { useCallback, useState } from 'react'
 import { FieldValues, SubmitHandler, useForm, } from 'react-hook-form'
@@ -9,11 +9,13 @@ import { FcGoogle } from 'react-icons/fc'
 import { toast } from 'sonner'
 import { signIn, useSession } from "next-auth/react"
 import { socialLogin } from '../_actions/authActions'
-import { useRouter } from 'next/navigation'
+import { redirect, useRouter } from 'next/navigation'
+import { PiSpinnerLight } from 'react-icons/pi'
 
 
 const LoginPage = () => {
    const [isLoading, setIsLoading] = useState(false)
+   const [isSocialBtnLoading, setIsSocialBtnLoading] = useState(false)
    const { data: session, status } = useSession()
    const router = useRouter()
 
@@ -35,6 +37,7 @@ const LoginPage = () => {
    })
 
    const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+      setIsLoading(true)
       signIn("credentials", { ...data, redirect: false })
          .then((response) => {
             if (response?.error) {
@@ -42,6 +45,7 @@ const LoginPage = () => {
             }
             if (response?.ok) {
                toast.success("Logged in successfully");
+               router.push("/")
             }
          })
          .catch((error: any) => {
@@ -51,11 +55,24 @@ const LoginPage = () => {
          })
          .finally(() => setIsLoading(false))
    }
+
    const handleSocialLogin = (action: string) => {
-      socialLogin({
-         action,
-         handleLoading: setIsLoading
-      })
+      setIsSocialBtnLoading(true)
+      signIn(action, { redirect: false })
+         .then((response) => {
+            if (response?.error) {
+               toast.error("Something went wrong, Try Again!");
+            }
+            if (response?.ok) {
+               toast.success("Logged in successfully");
+               router.push("/")
+            }
+         })
+         .catch(() => {
+            toast.error("Something went wrong, Please try again")
+            setIsSocialBtnLoading(false)
+         })
+         .finally(() => setIsSocialBtnLoading(false))
    }
 
    return (
@@ -83,11 +100,15 @@ const LoginPage = () => {
                <div className='w-full mt-4'>
                   <Button
                      type="submit"
-                     isLoading={isLoading || status === "loading"}
-                     className='w-full py-6 font-bold md:text-xl disabled:opacity-50 disabled:cursor-not-allowed'
+                     variant='ghost'
+                     className='w-full flex items-center justify-center gap-2 bg-saap-transparent hover:!bg-saap-transparent py-6 font-bold md:text-xl disabled:opacity-50 disabled:cursor-not-allowed text-lg rounded'
                      disabled={isLoading || status === "loading"}
+                     disableAnimation
                   >
-                     Login
+                     {isLoading ? (
+                        <PiSpinnerLight size={18} className="animate-spin" />
+                     ) : null}
+                     <span>Login</span>
                   </Button>
                </div>
             </form>
@@ -100,6 +121,8 @@ const LoginPage = () => {
                <SocialAuthButton
                   icon={FcGoogle}
                   onClick={() => handleSocialLogin("google")}
+                  isLoading={isSocialBtnLoading}
+                  disabled={isLoading || status === "loading"}
                >
                   Continue with
                </SocialAuthButton>
