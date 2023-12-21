@@ -7,14 +7,18 @@ import HeaderIcon from "./HeaderIcon";
 import { useRouter } from 'next-nprogress-bar'; // This useRouter will helps us to display the progress bar on the top.;
 import ProfileDropdown from "./ProfileDropdown";
 import Link from "next/link";
+import { useDisclosure } from "@nextui-org/react";
+import PostFormModal from "@/app/(pages)/components/post-form/PostFormModal";
 
 
 const MainHeader = () => {
     const router = useRouter()
+    const { isOpen, onOpen, onClose } = useDisclosure();
     const handleSearch = () => { }
     const handleNotification = () => { }
     const handleCreatePost = () => {
-        router.push("/post/create")
+        // router.push("/post/create")
+        onOpen()
     }
 
     return (
@@ -39,6 +43,8 @@ const MainHeader = () => {
                             tooltipContent="Create post"
                         />
                     </div>
+                    {/* ============== Post Form Modal ================== */}
+                    <PostFormModal isOpen={isOpen} onClose={onClose} />
                     <div>
                         <HeaderIcon
                             Icon={RiSearch2Line}

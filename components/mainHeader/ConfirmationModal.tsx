@@ -4,6 +4,7 @@ import { ImWarning } from "react-icons/im";
 import { signOut } from "next-auth/react";
 // import { useRouter } from 'next/navigation'
 import { useRouter } from 'next-nprogress-bar'; // This useRouter will helps us to display the progress bar on the top.;
+import SaapModal from "../ui/SaapModal";
 
 interface ModalProps {
    isOpen: boolean;
@@ -19,52 +20,20 @@ const ConfirmationModal: FC<ModalProps> = ({ isOpen, onClose }) => {
       onClose();
    }
    return (
-      <Modal
-         backdrop="blur"
-         isOpen={isOpen}
-         onClose={onClose}
-         placement="center"
-         className='bg-saap-bg-primary dark:bg-saap-bg-dark-primary'
-         motionProps={{
-            variants: {
-               enter: {
-                  y: 0,
-                  opacity: 1,
-                  transition: {
-                     duration: 0.3,
-                     ease: "easeOut",
-                  },
-               },
-               exit: {
-                  y: -20,
-                  opacity: 0,
-                  transition: {
-                     duration: 0.2,
-                     ease: "easeIn",
-                  },
-               },
-            }
-         }}
-      >
-         <ModalContent>
-            {() => (
-               <>
-                  <ModalHeader className="flex gap-2 items-center text-warning-500">
-                     <ImWarning />
-                     <div>Are you sure?</div>
-                  </ModalHeader>
-                  <ModalFooter>
-                     <Button color="danger" variant="light" onPress={onClose}>
-                        Cancel
-                     </Button>
-                     <Button color="primary" onPress={handleLogout}>
-                        Logout
-                     </Button>
-                  </ModalFooter>
-               </>
-            )}
-         </ModalContent>
-      </Modal>
+      <SaapModal isOpen={isOpen} onClose={onClose}>
+         <ModalHeader className="flex gap-2 items-center text-warning-500">
+            <ImWarning />
+            <div>Are you sure?</div>
+         </ModalHeader>
+         <ModalFooter>
+            <Button color="danger" variant="light" onPress={onClose}>
+               Cancel
+            </Button>
+            <Button color="primary" onPress={handleLogout}>
+               Logout
+            </Button>
+         </ModalFooter>
+      </SaapModal>
 
    )
 }
