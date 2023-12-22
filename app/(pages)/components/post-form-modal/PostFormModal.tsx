@@ -1,15 +1,10 @@
 "use client"
-import { ChangeEvent, FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Button, Divider, Textarea, useDisclosure } from "@nextui-org/react";
+import { ChangeEvent, FC, useCallback, useEffect, useRef, useState } from "react";
+import { Divider } from "@nextui-org/react";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import clsx from "clsx";
 import { toast } from "sonner";
-import { IoImage } from "react-icons/io5";
 import { useEdgeStore } from "@/lib/edgestore";
-import Image from "next/image";
-import { ImCancelCircle } from "react-icons/im";
-import { PiSpinnerLight } from "react-icons/pi";
 import useAutosizeTextArea from "@/hooks/useAutosizeTextarea";
 import SaapModal from "@/components/ui/SaapModal";
 import PostFormHeader from "./PostFormHeader";
@@ -143,15 +138,6 @@ const PostFormModal: FC<PostFormModalProps> = ({ isOpen, onClose }) => {
       }
       deleteImage()
    }, [edgestore, image?.url])
-
-   // handler discard post
-   const handleDiscard = () => {
-      setPost(null)
-      setFile(null)
-      setImage(null)
-      setImageContainerVisible(false)
-   };
-
 
    return (
       <SaapModal

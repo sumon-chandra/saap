@@ -3,12 +3,10 @@
 import { RiNotification2Line, RiSearch2Line } from "react-icons/ri";
 import { IoCreateOutline } from "react-icons/io5";
 import HeaderIcon from "./HeaderIcon";
-// import { useRouter } from 'next/navigation'
-import { useRouter } from 'next-nprogress-bar'; // This useRouter will helps us to display the progress bar on the top.;
 import ProfileDropdown from "./ProfileDropdown";
 import Link from "next/link";
 import { useDisclosure } from "@nextui-org/react";
-import PostFormModal from "@/app/(pages)/components/post-form/PostFormModal";
+import PostFormModal from "@/app/(pages)/components/post-form-modal/PostFormModal";
 
 
 const MainHeader = () => {
