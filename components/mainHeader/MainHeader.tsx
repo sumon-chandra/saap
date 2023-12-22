@@ -12,17 +12,18 @@ import PostFormModal from "@/app/(pages)/components/post-form/PostFormModal";
 
 
 const MainHeader = () => {
-    const router = useRouter()
     const { isOpen, onOpen, onClose } = useDisclosure();
+
     const handleSearch = () => { }
+
     const handleNotification = () => { }
+
     const handleCreatePost = () => {
-        // router.push("/post/create")
         onOpen()
     }
 
     return (
-        <header className="sticky top-0 bg-saap-bg-primary dark:bg-saap-bg-dark-secondary rounded-b-md z-[999]">
+        <header className="sticky top-0 bg-saap-bg-primary dark:bg-saap-bg-dark-secondary rounded-b-md z-[30]">
             <div className="flex justify-between py-3 mx-auto">
                 <div className="flex-1 ps-4">
                     <ProfileDropdown />

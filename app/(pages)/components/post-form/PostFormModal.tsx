@@ -12,6 +12,11 @@ import { ImCancelCircle } from "react-icons/im";
 import { PiSpinnerLight } from "react-icons/pi";
 import useAutosizeTextArea from "@/hooks/useAutosizeTextarea";
 import SaapModal from "@/components/ui/SaapModal";
+import PostFormHeader from "./PostFormHeader";
+import PostImage from "./PostImage";
+import InsertImageBtn from "./InsertImageBtn";
+import PostBtn from "./PostBtn";
+import PostTextarea from "./PostTextarea";
 
 
 export interface PostProps {
@@ -80,7 +85,7 @@ const PostFormModal: FC<PostFormModalProps> = ({ isOpen, onClose }) => {
    }
 
    // Display toast messages based on the POST event
-   useCallback(() => {
+   useEffect(() => {
       if (isSuccess) {
          toast.success(<div className="text-[16px]">Post created successfully!</div>)
          setPost(null)
@@ -147,105 +152,34 @@ const PostFormModal: FC<PostFormModalProps> = ({ isOpen, onClose }) => {
       setImageContainerVisible(false)
    };
 
-   // Image skeleton
-   const skeleton = (
-      <div className="w-32 space-y-5 p-2 bg-saap-transparent rounded-xl">
-         <div className="animate-pulse flex space-x-4">
-            <div className="bg-default-300 dark:bg-saap-bg-dark-secondary w-full h-32 rounded-lg"></div>
-         </div>
-      </div>
-   )
 
    return (
       <SaapModal
          isOpen={isOpen}
          onClose={onClose}
          isDismissable={false}
-         size="xl"
+         size="2xl"
       >
-         <div className='p-4 rounded bg-saap-bg-primary dark:bg-saap-bg-dark-primary'>
-            <Textarea
-               // ref={textareaRef}
-               onChange={(e) => handleOnChange(e)}
-               value={post?.body}
-               placeholder="What's in your mind?"
+         <div className='p-6'>
+            <PostFormHeader />
+            <PostTextarea
                disabled={isPending}
-               disableAnimation
-               minRows={10}
-               classNames={{
-                  input: "bg-saap-transparent",
-                  inputWrapper: "bg-saap-transparent data-[hover=true]:bg-saap-transparent group-data-[focus=true]:bg-saap-transparent",
-               }}
+               onChange={handleOnChange}
+               value={post?.body!}
             />
-            <div className="py-4">
-               {imageContainerVisible && (
-                  <div className={clsx("relative w-32 drop-shadow-xl shadow-saap-bg-dark-primary dark:shadow-saap-bg-dark-secondary group")}>
-                     {
-                        imageLoading ? skeleton : (
 
-                           image?.url && (
-                              <>
-                                 <button
-                                    className="bg-saap-bg-dark-primary opacity-0 group-hover:opacity-100 transition-all duration-300 text-saap-text-dark-secondary absolute top-1 right-1 p-1 rounded-full"
-                                    onClick={handleDeleteImage}
-                                 >
-                                    <ImCancelCircle size={20} />
-                                 </button>
-                                 <Image
-                                    src={image.url}
-                                    width={128}
-                                    height={100}
-                                    alt="Post image"
-                                    className="rounded-lg"
-                                    loading="lazy"
-                                 />
-                              </>
-                           )
-                        )
-                     }
-                  </div>
-               )
-               }
-            </div>
-            <label htmlFor="imageUploader" className="w-5 cursor-pointer flex items-center justify-center h-5 ">
-               <input
-                  type="file"
-                  name="imageUploader"
-                  id="imageUploader"
-                  className="w-[0.000001px]"
-                  onChange={(e) => {
-                     setFile(e.target.files?.[0]!);
-                  }}
-               />
-               <IoImage size={25} />
-            </label>
+            <PostImage
+               imageUrl={image?.url!}
+               isImageLoading={imageLoading}
+               isVisible={imageContainerVisible}
+               onImageDelete={handleDeleteImage}
+            />
 
             <Divider className="my-2" />
 
-            <div className='flex items-center justify-end gap-3 px-4'>
-               <div>
-                  <Button
-                     color="danger"
-                     variant="faded"
-                     className="font-semibold rounded-full dark:bg-saap-bg-dark-secondary border-danger-300"
-                     onClick={handleDiscard}
-                  >
-                     Discard
-                  </Button>
-               </div>
-               <div>
-                  <Button
-                     className="font-semibold dark:bg-saap-bg-dark-secondary rounded-full text-saap-primary border-saap-primary  disabled:cursor-not-allowed flex items-center justify-center gap-1"
-                     onClick={handlePost}
-                     disabled={isPending}
-                     variant="faded"
-                  >
-                     {isPending ? (
-                        <PiSpinnerLight size={18} className="animate-spin" />
-                     ) : null}
-                     <span>Post</span>
-                  </Button>
-               </div>
+            <div className='flex items-center justify-between'>
+               <InsertImageBtn setFile={setFile} isLoading={imageLoading} />
+               <PostBtn handlePost={handlePost} isPending={isPending} />
             </div>
          </div>
       </SaapModal>
