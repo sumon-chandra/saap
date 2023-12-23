@@ -1,13 +1,14 @@
 "use client"
 import Image from "next/image"
-import { Card, CardBody, CardFooter, CardHeader, Divider } from "@nextui-org/react"
-import { Post } from "@prisma/client"
+import { Card, CardBody, CardFooter, CardHeader, Divider, User } from "@nextui-org/react"
 import { FC, useState } from "react"
 import { FaHeart, FaRegHeart, FaComment, FaRegComment, FaShareSquare } from "react-icons/fa";
 import clsx from "clsx"
+import Link from "next/link"
+import { FullPostTypes } from "@/types"
 
 interface PostProps {
-    post: Post
+    post: FullPostTypes
 }
 
 const SinglePost: FC<PostProps> = ({ post }) => {
@@ -23,6 +24,19 @@ const SinglePost: FC<PostProps> = ({ post }) => {
             className="w-full shadow-none rounded  bg-saap-bg-primary dark:bg-saap-bg-dark-secondary"
         >
             <CardHeader>
+                <div>
+                    <User
+                        name={post.user.name}
+                        description={(
+                            <Link href="#">
+                                {post.user.userName}
+                            </Link>
+                        )}
+                        avatarProps={{
+                            src: post.user.image!
+                        }}
+                    />
+                </div>
             </CardHeader>
             <CardBody>
                 <div className="flex flex-col gap-4">

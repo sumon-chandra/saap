@@ -33,19 +33,3 @@ export async function POST(request: Request) {
         return new NextResponse("Internal Server Error, while Posting!! Please try again", { status: 500 })
     }
 }
-
-export async function GET() {
-    try {
-        const posts = await prisma.post.findMany({
-            include: {
-                user: true,
-            }
-        })
-        console.log({ "posts-length": posts.length });
-
-        return NextResponse.json(posts)
-    } catch (error: any) {
-        console.log("ERROR_GET_POSTS", error);
-        return new NextResponse("Internal Server Error, while GET posts, please try again", { status: 500 })
-    }
-}
