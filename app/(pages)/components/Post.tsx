@@ -2,10 +2,11 @@
 import Image from "next/image"
 import { Card, CardBody, CardFooter, CardHeader, Divider, User } from "@nextui-org/react"
 import { FC, useState } from "react"
-import { FaHeart, FaRegHeart, FaComment, FaRegComment, FaShareSquare } from "react-icons/fa";
 import clsx from "clsx"
 import Link from "next/link"
 import { FullPostTypes } from "@/types"
+import { FaHeart, FaRegHeart, FaComment, FaRegComment, FaShareSquare } from "react-icons/fa";
+import PostDangerDropdown from "./PostDangerDropdown"
 
 interface PostProps {
     post: FullPostTypes
@@ -24,7 +25,7 @@ const SinglePost: FC<PostProps> = ({ post }) => {
             className="w-full shadow-none rounded  bg-saap-bg-primary dark:bg-saap-bg-dark-secondary"
         >
             <CardHeader>
-                <div>
+                <div className="flex items-center justify-between w-full">
                     <User
                         name={post.user.name}
                         description={(
@@ -36,6 +37,7 @@ const SinglePost: FC<PostProps> = ({ post }) => {
                             src: post.user.image!
                         }}
                     />
+                    <PostDangerDropdown />
                 </div>
             </CardHeader>
             <CardBody>
