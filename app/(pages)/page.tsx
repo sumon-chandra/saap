@@ -1,6 +1,6 @@
 import { getPosts } from '../_actions/getPosts'
 import HomepageHeader from './components/HomepageHeader'
-import PostList from './components/PostList'
+import PostList from './components/post/PostList'
 
 const Home = async () => {
      const posts = await getPosts()
