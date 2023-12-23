@@ -1,8 +1,8 @@
 import { CardHeader, User } from '@nextui-org/react'
-import Link from 'next/link'
 import PostDangerDropdown from './PostDangerDropdown'
 import { FC } from 'react'
 import { FullPostTypes } from '@/types'
+import { postTimeFormate } from '@/utils/postTimeFormate'
 
 interface PostHeaderProps {
    post: FullPostTypes
@@ -15,9 +15,7 @@ const PostHeader: FC<PostHeaderProps> = ({ post }) => {
             <User
                name={post.user.name}
                description={(
-                  <Link href="#">
-                     {post.user.userName}
-                  </Link>
+                  <p className='text-xs'>{postTimeFormate(post.createdAt!)}</p>
                )}
                avatarProps={{
                   src: post.user.image!
