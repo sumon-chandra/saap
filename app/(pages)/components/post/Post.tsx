@@ -4,7 +4,7 @@ import { FC, useState } from "react"
 import clsx from "clsx"
 import Link from "next/link"
 import { FullPostTypes } from "@/types"
-import PostBody from "./PostBody"
+import PostBody from "./PostContent"
 import PostHeader from "./PostHeader"
 import PostFooter from "./PostFooter"
 
