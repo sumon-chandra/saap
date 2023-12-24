@@ -22,6 +22,8 @@ export function postTimeFormate(timeStamp: Date) {
       return `${minutesDiff} m ago`
    } else if (hoursDiff < 24) {
       return `${hoursDiff} h ago`
+   } else if (daysDiff < 2) {
+      return `${daysDiff} day ago`
    } else if (daysDiff < 7) {
       return `${daysDiff} days ago`
    } else if (weeksDiff < 30) {
