@@ -10,7 +10,7 @@ const UserProfileCard: FC<UserProfileCardProps> = ({ post }) => {
    const [isFollowed, setIsFollowed] = useState(false);
 
    return (
-      <Card shadow="none" className="max-w-[300px] border-none bg-transparent">
+      <Card shadow="none" className="max-w-[300px] border-none dark:bg-saap-bg-dark-primary">
          <CardHeader className="justify-between">
             <div className="flex gap-3">
                <Avatar isBordered radius="full" size="md" src={post?.user?.image!} />

@@ -14,7 +14,7 @@ const PostHeader: FC<PostHeaderProps> = ({ post }) => {
    return (
       <CardHeader>
          <div className="flex items-center justify-between w-full">
-            <Popover placement="bottom">
+            <Popover placement="bottom" shadow='lg'>
                <PopoverTrigger>
                   <User
                      name={post.user.name}
@@ -24,9 +24,10 @@ const PostHeader: FC<PostHeaderProps> = ({ post }) => {
                      avatarProps={{
                         src: post.user.image!
                      }}
+                     className='cursor-pointer'
                   />
                </PopoverTrigger>
-               <PopoverContent>
+               <PopoverContent className='dark:bg-saap-bg-dark-primary'>
                   <UserProfileCard post={post} />
                </PopoverContent>
             </Popover>
