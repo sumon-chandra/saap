@@ -50,17 +50,17 @@ const PostContent: FC<PostContentProps> = ({ post }) => {
                   ) : post.body}
                </div>
             </div>
-            <div>
-               {post.image && (
+            {post.image && (
+               <div className='relative overflow-hidden rounded-2xl drop-shadow-xl w-fit mt-2.5 cursor-pointer'>
                   <Image
-                     alt={post.userId}
-                     src={post.image as string}
-                     width={200}
-                     height={200}
-                  />
-               )}
-            </div>
-
+                     loading="lazy"
+                     src={post.image}
+                     width={630}
+                     height={630}
+                     alt="Will add alt-text soon!"
+                     className='object-contain max-h-[520px] w-max  rounded-2xl' />
+               </div>
+            )}
          </div>
       </CardBody>
    )
