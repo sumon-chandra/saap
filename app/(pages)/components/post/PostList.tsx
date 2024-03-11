@@ -3,6 +3,7 @@ import SinglePost from "./Post";
 import { FullPostTypes } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import PostSkeleton from "./PostSkeleton";
 
 const PostList = () => {
 	// console.log(posts);
@@ -10,6 +11,7 @@ const PostList = () => {
 		data: posts,
 		isLoading,
 		isPending,
+		isFetching,
 	} = useQuery<FullPostTypes[]>({
 		queryKey: ["posts"],
 		queryFn: async () => {
@@ -18,15 +20,19 @@ const PostList = () => {
 				.then((response) => response.data);
 		},
 	});
+
+	if (isFetching || isLoading || isPending) {
+		return (
+			<>
+				<PostSkeleton />
+				<PostSkeleton />
+			</>
+		);
+	}
 	return (
 		<div className="flex flex-col gap-4">
 			{posts?.map((post) => (
-				<SinglePost
-					key={post.id}
-					post={post}
-					isLoading={isLoading}
-					isPending={isPending}
-				/>
+				<SinglePost key={post.id} post={post} />
 			))}
 		</div>
 	);

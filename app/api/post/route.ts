@@ -54,7 +54,8 @@ export async function GET() {
 				likes: true,
 			},
 		});
-		return posts;
+
+		return NextResponse.json(posts);
 	} catch (error: any) {
 		return [];
 	}

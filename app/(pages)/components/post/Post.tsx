@@ -5,18 +5,12 @@ import { FullPostTypes } from "@/types";
 import PostBody from "./PostContent";
 import PostHeader from "./PostHeader";
 import PostFooter from "./PostFooter";
-import PostSkeleton from "./PostSkeleton";
 
 interface PostProps {
 	post: FullPostTypes;
-	isLoading: boolean;
-	isPending: boolean;
 }
 
-const SinglePost: FC<PostProps> = ({ post, isLoading, isPending }) => {
-	if (isLoading || isPending) {
-		return <PostSkeleton />;
-	}
+const SinglePost: FC<PostProps> = ({ post }) => {
 	return (
 		<Card className="w-full shadow-none rounded  bg-saap-bg-primary dark:bg-saap-bg-dark-secondary">
 			<PostHeader post={post} />
