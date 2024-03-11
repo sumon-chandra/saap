@@ -1,4 +1,4 @@
-import { Post, User } from "@prisma/client";
+import { Like, Post, User } from "@prisma/client";
 import { SVGProps } from "react";
 
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
@@ -6,5 +6,10 @@ export type IconSvgProps = SVGProps<SVGSVGElement> & {
 };
 
 export type FullPostTypes = Post & {
-  user: User
+  user: User;
+  Likes?: Like[]
+}
+
+export type FullLikeTypes = Like & {
+  user: User;
 }

@@ -3,33 +3,59 @@ import prisma from "@/lib/prismadb";
 import getLoggedUser from "@/app/_actions/getLoggedUser";
 
 export async function POST(request: Request) {
-    try {
-        const responseBody = await request.json()
-        const { body, image } = responseBody;
-        const user = await getLoggedUser()
+	try {
+		const responseBody = await request.json();
+		const { body, image } = responseBody;
+		const user = await getLoggedUser();
 
-        if (!body) {
-            return new NextResponse("Post's cannot be empty!!", { status: 401 })
-        }
+		if (!body) {
+			return new NextResponse(
+				"Post's cannot be empty!!",
+				{ status: 401 }
+			);
+		}
 
-        if (!user) {
-            return new NextResponse("Failed to detect author!!", { status: 402 })
-        }
+		if (!user) {
+			return new NextResponse(
+				"Failed to detect author!!",
+				{ status: 402 }
+			);
+		}
 
-        const post = await prisma.post.create({
-            data: {
-                body,
-                image,
-                userId: user.id
-            },
-            include: {
-                likes: true
-            }
-        })
+		const post = await prisma.post.create({
+			data: {
+				body,
+				image,
+				userId: user.id,
+			},
+			include: {
+				likes: true,
+			},
+		});
 
-        return NextResponse.json(post)
-    } catch (error: any) {
-        console.log("ERROR_WHILE_POST", error);
-        return new NextResponse("Internal Server Error, while Posting!! Please try again", { status: 500 })
-    }
+		return NextResponse.json(post);
+	} catch (error: any) {
+		console.log("ERROR_WHILE_POST", error);
+		return new NextResponse(
+			"Internal Server Error, while Posting!! Please try again",
+			{ status: 500 }
+		);
+	}
+}
+
+export async function GET() {
+	try {
+		const posts = await prisma?.post.findMany({
+			orderBy: {
+				createdAt: "desc",
+			},
+			include: {
+				user: true,
+				likes: true,
+			},
+		});
+		return posts;
+	} catch (error: any) {
+		return [];
+	}
 }
