@@ -17,7 +17,6 @@ const PostSkeleton = () => {
 			<Skeleton className="w-4/5 h-3 rounded-lg bg-saap-bg-primary dark:bg-saap-bg-dark-primary"></Skeleton>
 			<div className="space-y-3">
 				<Skeleton className="rounded-lg bg-saap-bg-primary dark:bg-saap-bg-dark-primary h-40"></Skeleton>
-				<Divider />
 				<Skeleton className="w-2/5 h-10 rounded-full bg-saap-bg-primary dark:bg-saap-bg-dark-primary"></Skeleton>
 			</div>
 		</Card>

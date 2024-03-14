@@ -1,6 +1,6 @@
 "use client";
 import SinglePost from "./Post";
-import { FullPostTypes } from "@/types";
+import { FullPostTypes } from "../../../../types";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import PostSkeleton from "./PostSkeleton";
@@ -23,10 +23,10 @@ const PostList = () => {
 
 	if (isFetching || isLoading || isPending) {
 		return (
-			<>
+			<div className="space-y-6">
 				<PostSkeleton />
 				<PostSkeleton />
-			</>
+			</div>
 		);
 	}
 	return (
