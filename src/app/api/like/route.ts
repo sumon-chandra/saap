@@ -38,7 +38,7 @@ export async function POST(request: Request) {
 				},
 			},
 		});
-		console.log({ newLike });
+		// console.log({ newLike });
 
 		// const updatePost = await prisma.post.update({
 		//    where: {

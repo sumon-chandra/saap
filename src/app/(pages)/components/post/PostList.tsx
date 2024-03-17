@@ -19,6 +19,7 @@ const PostList = () => {
 				.get(`/api/post`)
 				.then((response) => response.data);
 		},
+		staleTime: 1000 * 60,
 	});
 
 	if (isFetching || isLoading || isPending) {

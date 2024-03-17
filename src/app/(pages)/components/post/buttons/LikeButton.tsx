@@ -1,12 +1,12 @@
 "use client";
 
-import { FullLikeTypes, FullPostTypes } from "@/types";
+import { FullLikeTypes, FullPostTypes } from "../../../../../types";
 import { Button } from "@nextui-org/react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
-import { FC, useMemo, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 interface LikeButtonProps {
@@ -20,15 +20,23 @@ interface LikeMutateProps {
 
 const LikeButton: FC<LikeButtonProps> = ({ post }) => {
 	const [isLiked, setIsLiked] = useState(false);
-	const [likeCount, setLikeCount] = useState<number>(
-		post?.Likes?.length || 0
-	);
 
 	const { data } = useSession();
 
-	const { mutate } = useMutation({
+	const { mutate, isSuccess: isLikeSuccess } = useMutation({
 		mutationFn: (newLike: LikeMutateProps) => {
 			return axios.post("/api/like", newLike);
+		},
+	});
+
+	const { data: likes, refetch: refetchLike } = useQuery<
+		FullLikeTypes[]
+	>({
+		queryKey: ["like"],
+		queryFn: async () => {
+			return await axios
+				.get(`/api/like`)
+				.then((response) => response.data);
 		},
 	});
 
@@ -40,23 +48,23 @@ const LikeButton: FC<LikeButtonProps> = ({ post }) => {
 		});
 	};
 
-	const { data: likes, refetch } = useQuery<FullLikeTypes[]>({
-		queryKey: ["like"],
-		queryFn: async () => {
-			return await axios
-				.get(`/api/like`)
-				.then((response) => response.data);
-		},
-	});
-	// console.log({ likes });
+	const postLikes = likes?.filter((like) => like.postId === post.id);
+
+	useEffect(() => {
+		postLikes?.forEach((postLike) => {
+			if (data?.user?.id === postLike.user.id) {
+				setIsLiked(true);
+				console.log("Same user!");
+			}
+		});
+	}, [postLikes?.length]);
 
 	useMemo(() => {
-		setLikeCount((likeCount) => likeCount + 1);
-		refetch();
-		// console.log({ post });
-	}, [refetch]);
-
-	const postLikes = likes?.filter((like) => like.postId === post.id);
+		if (isLikeSuccess) {
+			refetchLike();
+			setIsLiked(true);
+		}
+	}, [isLikeSuccess, refetchLike]);
 
 	return (
 		<div className="flex items-center justify-start">
@@ -64,9 +72,9 @@ const LikeButton: FC<LikeButtonProps> = ({ post }) => {
 				isIconOnly
 				radius="full"
 				className={clsx(
-					"bg-saap-transparent rounded-full p-0 cursor-pointer",
+					"bg-saap-transparent rounded-full p-0 cursor-pointer text-2xl",
 					isLiked &&
-						"bg-saap-bg-primary-light text-saap-secondary dark:bg-saap-bg-dark-primary"
+						"text-saap-secondary"
 				)}
 			>
 				{isLiked ? (
