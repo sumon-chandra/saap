@@ -19,6 +19,8 @@ import PostImage from "./PostImage";
 import InsertImageBtn from "./InsertImageBtn";
 import PostBtn from "./PostBtn";
 import PostTextarea from "./PostTextarea";
+import { PostsRefetchStoreType } from "@/src/types";
+import { useRefetchPosts } from "@/src/store/posts-store";
 
 export interface PostProps {
 	body?: string;
@@ -51,6 +53,10 @@ const PostFormModal: FC<PostFormModalProps> = ({ isOpen, onClose }) => {
 		image: "",
 	});
 
+	const setRefetchPosts = useRefetchPosts(
+		(state: PostsRefetchStoreType) => state.setRefetchPosts
+	);
+
 	// Autosize Textarea
 	const textareaRef = useRef<HTMLTextAreaElement>(null);
 	useAutosizeTextArea(textareaRef.current, post?.body!);
@@ -74,7 +80,7 @@ const PostFormModal: FC<PostFormModalProps> = ({ isOpen, onClose }) => {
 	const handlePost = () => {
 		if (post) {
 			mutate(post);
-			console.log({ post });
+			// console.log({ post });
 		} else {
 			toast.error("Post is can't be empty!!");
 		}
@@ -93,6 +99,7 @@ const PostFormModal: FC<PostFormModalProps> = ({ isOpen, onClose }) => {
 			setImage(null);
 			setImageContainerVisible(false);
 			onClose(); // Close the modal window
+			setRefetchPosts(true);
 		}
 		if (isError) {
 			console.log(isError);

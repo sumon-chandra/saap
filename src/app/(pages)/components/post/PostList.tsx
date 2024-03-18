@@ -1,17 +1,25 @@
 "use client";
 import SinglePost from "./Post";
-import { FullPostTypes } from "../../../../types";
+import { FullPostTypes, PostsRefetchStoreType } from "../../../../types";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import PostSkeleton from "./PostSkeleton";
+import { useRefetchPosts } from "@/src/store/posts-store";
 
 const PostList = () => {
-	// console.log(posts);
+	const setRefetchPosts = useRefetchPosts(
+		(state: PostsRefetchStoreType) => state.setRefetchPosts
+	);
+	const refetchPosts = useRefetchPosts(
+		(state: PostsRefetchStoreType) => state.refetchPost
+	);
 	const {
 		data: posts,
 		isLoading,
 		isPending,
 		isFetching,
+		refetch,
+		isFetched,
 	} = useQuery<FullPostTypes[]>({
 		queryKey: ["posts"],
 		queryFn: async () => {
@@ -19,7 +27,7 @@ const PostList = () => {
 				.get(`/api/post`)
 				.then((response) => response.data);
 		},
-		staleTime: 1000 * 60,
+		staleTime: 60000 * 10,
 	});
 
 	if (isFetching || isLoading || isPending) {
@@ -30,6 +38,15 @@ const PostList = () => {
 			</div>
 		);
 	}
+
+	if (refetchPosts) {
+		refetch();
+	}
+
+	if (isFetched) {
+		setRefetchPosts(false);
+	}
+
 	return (
 		<div className="flex flex-col gap-4">
 			{posts?.map((post) => (
