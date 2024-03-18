@@ -18,3 +18,9 @@ export interface PostsRefetchStoreType {
 	refetchPost: boolean;
 	setRefetchPosts: (isRefetch: boolean) => void;
 }
+
+export interface ParamsTypes {
+	params: {
+		id: string;
+	};
+}

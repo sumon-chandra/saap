@@ -50,7 +50,7 @@ const PostHeader: FC<PostHeaderProps> = ({ post }) => {
 						/>
 					</PopoverContent>
 				</Popover>
-				<PostDangerDropdown />
+				<PostDangerDropdown post={post} />
 			</div>
 		</CardHeader>
 	);
