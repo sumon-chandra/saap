@@ -47,7 +47,7 @@ export async function POST(request: Request) {
 	}
 }
 
-export async function GET(): Promise<void | Response> {
+export async function GET() {
 	try {
 		const likes = await prisma.like.findMany({
 			include: {
@@ -62,6 +62,7 @@ export async function GET(): Promise<void | Response> {
 		});
 
 		if (!likes) {
+			console.log("ERROR WHILE GETTING LIKES");
 			return new NextResponse("Likes not found!!", {
 				status: 404,
 			});

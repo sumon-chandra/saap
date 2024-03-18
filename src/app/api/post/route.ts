@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import prisma from "../../../lib/prismadb";
 import getLoggedUser from "../../../app/_actions/getLoggedUser";
+import { AxiosError } from "axios";
 
 export async function POST(request: Request) {
 	try {
@@ -55,8 +56,19 @@ export async function GET() {
 			},
 		});
 
+		if (!posts) {
+			console.log("ERROR WHILE GETTING LIKES");
+			return new NextResponse("Posts not found!!", {
+				status: 404,
+			});
+		}
+
 		return NextResponse.json(posts);
-	} catch (error: any) {
-		return [];
+	} catch (e: any) {
+		const error = e as AxiosError;
+		console.log("ERROR TO GET POSTS", error);
+		return new NextResponse("Error getting likes!!", {
+			status: 405,
+		});
 	}
 }
