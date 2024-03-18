@@ -17,8 +17,6 @@ export async function POST(request: Request) {
 			},
 		});
 
-		// console.log({ isLiked });
-
 		if (isLiked) {
 			return NextResponse.json("already-liked");
 		}
@@ -38,36 +36,6 @@ export async function POST(request: Request) {
 				},
 			},
 		});
-		// console.log({ newLike });
-
-		// const updatePost = await prisma.post.update({
-		//    where: {
-		//       id: postId
-		//    },
-		//    data: {
-		//       updatedAt: new Date(),
-		//       likes: {
-		//          connect: {
-		//             id: newLike.id,
-		//             postId: newLike.postId,
-		//             userId: newLike.userId
-		//          }
-		//       }
-		//    },
-		//    include: {
-		//       user: {
-		//          select: {
-		//             id: true,
-		//             name: true,
-		//             image: true
-		//          }
-		//       }
-		//    }
-		// })
-
-		// console.log({ updatePost });
-
-		// console.log({ newLike });
 
 		return NextResponse.json(newLike);
 	} catch (error: any) {
@@ -79,7 +47,7 @@ export async function POST(request: Request) {
 	}
 }
 
-export async function GET() {
+export async function GET(): Promise<void | Response> {
 	try {
 		const likes = await prisma.like.findMany({
 			include: {
@@ -94,7 +62,9 @@ export async function GET() {
 		});
 
 		if (!likes) {
-			return [];
+			return new NextResponse("Likes not found!!", {
+				status: 404,
+			});
 		}
 		// console.log({ likes });
 
