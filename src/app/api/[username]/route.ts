@@ -15,7 +15,7 @@ export async function GET(request: Request, { params }: { params: { username: st
 			return new NextResponse("Something went wrong!!, please try again.", { status: 404 });
 		}
 
-		const userProfile = await prisma.user.findMany({
+		const userProfile = await prisma.user.findFirst({
 			where: {
 				userName: params.username,
 			},
@@ -33,7 +33,7 @@ export async function GET(request: Request, { params }: { params: { username: st
 			return new NextResponse("No user profile found!!", { status: 404 });
 		}
 
-		console.log({ userProfile });
+		// console.log({ userProfile });
 
 		return NextResponse.json(userProfile);
 	} catch (e) {

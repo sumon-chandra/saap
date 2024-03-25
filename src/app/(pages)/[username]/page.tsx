@@ -9,7 +9,7 @@ const ProfilePage = () => {
 	const { username } = useParams();
 
 	const {
-		data: profile = [],
+		data: profile,
 		isFetching,
 		isError,
 	} = useQuery({
@@ -20,12 +20,12 @@ const ProfilePage = () => {
 		staleTime: 60000 * 10,
 	});
 
-	console.log(profile);
+	// console.log(profile);
 
 	return (
 		<div>
-			<ProfileHeader profile={profile[0]} isLoading={isFetching} isError={isError} />
-			<h3>Profile page</h3>
+			<ProfileHeader profile={profile} isLoading={isFetching} isError={isError} />
+			<h3 className="pt-32">Profile page</h3>
 		</div>
 	);
 };
