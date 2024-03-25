@@ -1,10 +1,4 @@
-import {
-	CardHeader,
-	Popover,
-	PopoverContent,
-	PopoverTrigger,
-	User,
-} from "@nextui-org/react";
+import { CardHeader, Popover, PopoverContent, PopoverTrigger, User } from "@nextui-org/react";
 import PostDangerDropdown from "./PostDangerDropdown";
 import { FC } from "react";
 import { FullPostTypes } from "../../../../types";
@@ -22,11 +16,7 @@ const PostHeader: FC<PostHeaderProps> = ({ post }) => {
 				<Popover placement="bottom" shadow="lg">
 					<PopoverTrigger>
 						<User
-							name={
-								post
-									.user
-									.name
-							}
+							name={post?.user?.name}
 							description={
 								<p className="text-xs">
 									{postTimeFormate(
@@ -35,19 +25,13 @@ const PostHeader: FC<PostHeaderProps> = ({ post }) => {
 								</p>
 							}
 							avatarProps={{
-								src: post
-									.user
-									.image!,
+								src: post?.user?.image!,
 							}}
 							className="cursor-pointer"
 						/>
 					</PopoverTrigger>
 					<PopoverContent className="dark:bg-saap-bg-dark-primary">
-						<UserProfileCard
-							post={
-								post
-							}
-						/>
+						<UserProfileCard post={post} />
 					</PopoverContent>
 				</Popover>
 				<PostDangerDropdown post={post} />

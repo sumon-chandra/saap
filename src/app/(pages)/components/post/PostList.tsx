@@ -7,14 +7,10 @@ import PostSkeleton from "./PostSkeleton";
 import { useRefetchPosts } from "@/src/store/posts-store";
 
 const PostList = () => {
-	const setRefetchPosts = useRefetchPosts(
-		(state: PostsRefetchStoreType) => state.setRefetchPosts
-	);
-	const refetchPosts = useRefetchPosts(
-		(state: PostsRefetchStoreType) => state.refetchPost
-	);
+	const setRefetchPosts = useRefetchPosts((state: PostsRefetchStoreType) => state.setRefetchPosts);
+	const refetchPosts = useRefetchPosts((state: PostsRefetchStoreType) => state.refetchPost);
 	const {
-		data: posts,
+		data: posts = [],
 		isLoading,
 		isPending,
 		isFetching,
@@ -23,9 +19,7 @@ const PostList = () => {
 	} = useQuery<FullPostTypes[]>({
 		queryKey: ["posts"],
 		queryFn: async () => {
-			return await axios
-				.get(`/api/post`)
-				.then((response) => response.data);
+			return await axios(`/api/post`).then((response) => response.data);
 		},
 		staleTime: 60000 * 10,
 	});

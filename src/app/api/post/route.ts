@@ -10,17 +10,11 @@ export async function POST(request: Request) {
 		const user = await getLoggedUser();
 
 		if (!body) {
-			return new NextResponse(
-				"Post's cannot be empty!!",
-				{ status: 401 }
-			);
+			return new NextResponse("Post's cannot be empty!!", { status: 401 });
 		}
 
 		if (!user) {
-			return new NextResponse(
-				"Failed to detect author!!",
-				{ status: 402 }
-			);
+			return new NextResponse("Failed to detect author!!", { status: 402 });
 		}
 
 		const post = await prisma.post.create({
@@ -37,10 +31,7 @@ export async function POST(request: Request) {
 		return NextResponse.json(post);
 	} catch (error: any) {
 		console.log("ERROR_WHILE_POST", error);
-		return new NextResponse(
-			"Internal Server Error, while Posting!! Please try again",
-			{ status: 500 }
-		);
+		return new NextResponse("Internal Server Error, while Posting!! Please try again", { status: 500 });
 	}
 }
 
@@ -67,7 +58,7 @@ export async function GET() {
 	} catch (e: any) {
 		const error = e as AxiosError;
 		console.log("ERROR TO GET POSTS", error);
-		return new NextResponse("Error getting likes!!", {
+		return new NextResponse("Error getting posts!!", {
 			status: 405,
 		});
 	}

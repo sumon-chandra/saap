@@ -14,6 +14,10 @@ export type FullLikeTypes = Like & {
 	user: User;
 };
 
+export type FullUserTypes = User & {
+	posts: Post[];
+};
+
 export interface PostsRefetchStoreType {
 	refetchPost: boolean;
 	setRefetchPosts: (isRefetch: boolean) => void;
