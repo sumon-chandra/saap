@@ -70,7 +70,7 @@ export const authOptions: NextAuthOptions = {
 					id: session.user.id,
 				},
 				data: {
-					userName: session.user.userName,
+					userName: session.user.userName!,
 				},
 			});
 			return session;
