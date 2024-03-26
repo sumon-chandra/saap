@@ -4,7 +4,8 @@ const nextConfig = {
     images: {
         domains: [
             "files.edgestore.dev",
-            "i.ibb.co"
+            "i.ibb.co",
+            "lh3.googleusercontent.com"
         ]
     }
 }
