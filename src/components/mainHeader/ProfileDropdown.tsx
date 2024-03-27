@@ -61,7 +61,7 @@ const ProfileDropdown = () => {
 						className="data-[hover=true]:bg-saap-bg-secondary data-[hover=true]:dark:bg-saap-bg-dark-secondary"
 					>
 						<Link
-							href={`/${
+							href={`/profile/${
 								session?.user?.userName ||
 								session?.user?.id
 							}`}
