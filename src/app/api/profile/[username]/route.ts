@@ -1,7 +1,7 @@
 import prisma from "@/src/lib/prismadb";
 import { AxiosError } from "axios";
 import { NextResponse } from "next/server";
-import getLoggedUser from "../../_actions/getLoggedUser";
+import getLoggedUser from "../../../_actions/getLoggedUser";
 
 export async function GET(request: Request, { params }: { params: { username: string } }) {
 	try {

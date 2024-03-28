@@ -5,24 +5,28 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import PostSkeleton from "./PostSkeleton";
 import { useRefetchPosts } from "@/src/store/posts-store";
+import { FC } from "react";
+import { useGetPosts } from "@/src/hooks/useGetPosts";
 
-const PostList = () => {
+interface PostListProps {
+	profilePosts?: boolean;
+	userId?: string;
+}
+
+const PostList: FC<PostListProps> = ({ profilePosts, userId }) => {
+	// console.log({ profilePosts, userId });
+
 	const setRefetchPosts = useRefetchPosts((state: PostsRefetchStoreType) => state.setRefetchPosts);
 	const refetchPosts = useRefetchPosts((state: PostsRefetchStoreType) => state.refetchPost);
+
 	const {
 		data: posts = [],
-		isLoading,
-		isPending,
 		isFetching,
 		refetch,
+		isLoading,
+		isPending,
 		isFetched,
-	} = useQuery<FullPostTypes[]>({
-		queryKey: ["posts"],
-		queryFn: async () => {
-			return await axios(`/api/post`).then((response) => response.data);
-		},
-		staleTime: 60000 * 10,
-	});
+	} = useGetPosts({ profilePosts, userId });
 
 	if (isFetching || isLoading || isPending) {
 		return (

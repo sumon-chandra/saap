@@ -4,28 +4,26 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import ProfileHeader from "./components/ProfileHeader";
 import { useParams } from "next/navigation";
+import ProfilePostList from "./components/ProfilePostList";
+import { FullUserTypes } from "@/src/types";
+import PostList from "../../components/post/PostList";
+import { useGetProfile } from "@/src/hooks/useGetProfile";
 
 const ProfilePage = () => {
-	const { username } = useParams();
+	const { username } = useParams<{ username: string }>();
 
-	const {
-		data: profile,
-		isFetching,
-		isError,
-	} = useQuery({
-		queryKey: ["profile"],
-		queryFn: async () => {
-			return await axios.get(`/api/${username}`).then((response) => response.data);
-		},
-		staleTime: 60000 * 10,
-	});
+	const { data: profile, isFetching, isError } = useGetProfile(username);
+	// const {data: profile, isFetching, isError} = useGetProfile(username);
 
 	// console.log(profile);
 
 	return (
 		<div>
-			<ProfileHeader profile={profile} isLoading={isFetching} isError={isError} />
-			<h3 className="pt-32">Profile page</h3>
+			<ProfileHeader profile={profile!} isLoading={isFetching} isError={isError} />
+			<div className="mt-10">
+				{/* <ProfilePostList posts={profile?.posts} /> */}
+				<PostList profilePosts userId={profile?.id!} />
+			</div>
 		</div>
 	);
 };

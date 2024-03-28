@@ -3,7 +3,7 @@ import PostList from "./components/post/PostList";
 
 const Home = async () => {
 	return (
-		<div className="">
+		<div className="pb-10">
 			<div>
 				<HomepageHeader />
 			</div>
