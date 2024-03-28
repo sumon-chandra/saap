@@ -1,25 +1,22 @@
-import { Card, Divider, Skeleton } from "@nextui-org/react";
+import SaapSkeleton from "@/src/components/ui/SaapSkeleton";
 
 const PostSkeleton = () => {
 	return (
-		<Card
-			className="w-full space-y-5 p-4 shadow-none bg-saap-bg-secondary dark:bg-saap-bg-dark-secondary"
-			radius="sm"
-		>
+		<SaapSkeleton className="w-full space-y-5 p-4 shadow-none bg-saap-bg-secondary dark:bg-saap-bg-dark-secondary">
 			<div className="flex gap-6 items-center">
-				<Skeleton className="rounded-full h-11 w-11 bg-saap-bg-primary dark:bg-saap-bg-dark-primary"></Skeleton>
+				<div className="rounded-full h-11 w-11 bg-saap-bg-primary dark:bg-saap-bg-dark-primary"></div>
 				<div className="space-y-1">
-					<Skeleton className="w-44 h-4 rounded-lg bg-saap-bg-primary dark:bg-saap-bg-dark-primary"></Skeleton>
-					<Skeleton className="w-32 h-3 rounded-lg bg-saap-bg-primary dark:bg-saap-bg-dark-primary"></Skeleton>
+					<div className="w-44 h-4 rounded-lg bg-saap-bg-primary dark:bg-saap-bg-dark-primary"></div>
+					<div className="w-32 h-3 rounded-lg bg-saap-bg-primary dark:bg-saap-bg-dark-primary"></div>
 				</div>
 			</div>
-			<Skeleton className="w-3/5 h-3 rounded-lg bg-saap-bg-primary dark:bg-saap-bg-dark-primary"></Skeleton>
-			<Skeleton className="w-4/5 h-3 rounded-lg bg-saap-bg-primary dark:bg-saap-bg-dark-primary"></Skeleton>
+			<div className="w-3/5 h-3 rounded-lg bg-saap-bg-primary dark:bg-saap-bg-dark-primary"></div>
+			<div className="w-4/5 h-3 rounded-lg bg-saap-bg-primary dark:bg-saap-bg-dark-primary"></div>
 			<div className="space-y-3">
-				<Skeleton className="rounded-lg bg-saap-bg-primary dark:bg-saap-bg-dark-primary h-40"></Skeleton>
-				<Skeleton className="w-2/5 h-10 rounded-full bg-saap-bg-primary dark:bg-saap-bg-dark-primary"></Skeleton>
+				<div className="rounded-lg bg-saap-bg-primary dark:bg-saap-bg-dark-primary h-40"></div>
+				<div className="w-2/5 h-10 rounded-full bg-saap-bg-primary dark:bg-saap-bg-dark-primary"></div>
 			</div>
-		</Card>
+		</SaapSkeleton>
 	);
 };
 

@@ -18,9 +18,9 @@ const ProfileHeaderSkeleton = () => {
 					</div>
 				</div>
 				<div className="mt-6 space-y-4">
-					<Divider />
 					<div className="w-full h-4 rounded-full bg-saap-bg-primary dark:bg-saap-bg-dark-secondary" />
 					<div className="w-3/4 h-4 rounded-full bg-saap-bg-primary dark:bg-saap-bg-dark-secondary" />
+					<Divider />
 				</div>
 			</div>
 		</SaapSkeleton>

@@ -48,8 +48,8 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ profile, isLoading, isError }) 
 						</span>
 					</div>
 					<div className="mt-6">
+						<div className="my-3">+ add bio</div>
 						<Divider />
-						<div className="mt-3">+ add bio</div>
 					</div>
 				</div>
 			)}
