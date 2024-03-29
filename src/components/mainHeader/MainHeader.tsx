@@ -28,57 +28,34 @@ const MainHeader = () => {
 				<div className="flex-1 select-none">
 					<div className="flex items-center justify-center">
 						<div className="inline text-3xl font-bold text-center text-saap-primary cursor-pointer">
-							<Link href="/">
-								Saap.
-							</Link>
+							<Link href="/">Saap.</Link>
 						</div>
 					</div>
 				</div>
 				<div className="flex items-center justify-end flex-1 gap-3 mr-4">
 					<div>
 						<HeaderIcon
-							Icon={
-								IoCreateOutline
-							}
-							iconSize={
-								20
-							}
-							onClick={
-								handleCreatePost
-							}
+							Icon={IoCreateOutline}
+							iconSize={20}
+							onClick={handleCreatePost}
 							tooltipContent="Create post"
 						/>
 					</div>
 					{/* ============== Post Form Modal ================== */}
-					<PostFormModal
-						isOpen={isOpen}
-						onClose={onClose}
-					/>
+					<PostFormModal isOpen={isOpen} onClose={onClose} />
 					<div>
 						<HeaderIcon
-							Icon={
-								RiSearch2Line
-							}
-							iconSize={
-								20
-							}
-							onClick={
-								handleSearch
-							}
+							Icon={RiSearch2Line}
+							iconSize={20}
+							onClick={handleSearch}
 							tooltipContent="Search"
 						/>
 					</div>
 					<div>
 						<HeaderIcon
-							Icon={
-								RiNotification2Line
-							}
-							iconSize={
-								20
-							}
-							onClick={
-								handleNotification
-							}
+							Icon={RiNotification2Line}
+							iconSize={20}
+							onClick={handleNotification}
 							tooltipContent="Notification"
 						/>
 					</div>
