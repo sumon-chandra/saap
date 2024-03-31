@@ -8,16 +8,16 @@ interface Props {
 	userId?: string;
 }
 
-export const useGetPosts = ({ profilePosts, userId }: Props) => {
-	const { data, status } = useSession();
-
+export const useGetPosts = ({ profilePosts }: Props) => {
+	const { data } = useSession();
 	const PATH_URL = profilePosts ? `/api/profile-posts/${data?.user?.id}` : "/api/post";
 
 	const posts = useQuery<FullPostTypes[]>({
-		queryKey: ["posts"],
+		queryKey: [profilePosts ? "profile-posts" : "all-posts"],
 		queryFn: async () => {
 			return await axios(PATH_URL).then((response) => response.data);
 		},
+		staleTime: 60000,
 	});
 
 	return posts;

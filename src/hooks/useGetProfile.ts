@@ -8,6 +8,7 @@ export const useGetProfile = (username: string) => {
 		queryFn: async () => {
 			return await axios.get(`/api/profile/${username}`).then((response) => response.data);
 		},
+		staleTime: 60000,
 	});
 	return profile;
 };
