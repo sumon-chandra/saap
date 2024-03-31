@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, FC, useState } from "react";
+import { ChangeEvent, FC, useEffect, useState } from "react";
 import { Post } from "@prisma/client";
 import SaapModal from "@/src/components/ui/SaapModal";
 import PostTextarea from "../post-form-modal/PostTextarea";
@@ -9,6 +9,8 @@ import Image from "next/image";
 import { MdClose } from "react-icons/md";
 import SaapButton from "@/src/components/ui/SaapButton";
 import { Divider } from "@nextui-org/react";
+import useEditPost from "@/src/hooks/useEditPost";
+import { toast } from "sonner";
 
 interface Props {
 	isOpen: boolean;
@@ -22,6 +24,8 @@ const PostEditModal: FC<Props> = ({ isOpen, onClose, post: defaultPost }) => {
 		image: defaultPost?.image || "",
 	});
 
+	const { data: editPostResponse, mutate, isSuccess, isError, error } = useEditPost(defaultPost?.id);
+
 	// handle textarea changes
 	const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setPost((prevPost) => {
@@ -31,7 +35,23 @@ const PostEditModal: FC<Props> = ({ isOpen, onClose, post: defaultPost }) => {
 
 	const handleRemoveImage = () => {};
 
-	const handleEditPost = () => {};
+	const handleEditPost = () => {
+		mutate(post!);
+	};
+
+	// Display toast messages based on the Update event
+	useEffect(() => {
+		if (isSuccess) {
+			toast.success(<div className="text-[16px]">Post updated !</div>);
+			setPost(null);
+			onClose(); // Close the modal window
+		}
+		if (isError) {
+			console.log(isError);
+			toast.error(<div className="text-[16px]">Something went wrong, please try again!!</div>);
+			console.log(error);
+		}
+	}, [error, isError, isSuccess, onClose]);
 
 	return (
 		<SaapModal isOpen={isOpen} onClose={onClose} isDismissable={false} size="lg">
