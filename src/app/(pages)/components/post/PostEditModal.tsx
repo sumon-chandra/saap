@@ -24,7 +24,7 @@ const PostEditModal: FC<Props> = ({ isOpen, onClose, post: defaultPost }) => {
 		image: defaultPost?.image || "",
 	});
 
-	const { data: editPostResponse, mutate, isSuccess, isError, error } = useEditPost(defaultPost?.id);
+	const { data: editPostResponse, mutate, isSuccess, isError, error, isPending } = useEditPost(defaultPost?.id);
 
 	// handle textarea changes
 	const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -86,6 +86,7 @@ const PostEditModal: FC<Props> = ({ isOpen, onClose, post: defaultPost }) => {
 						<SaapButton
 							value="Update"
 							variant="action"
+							isLoading={isPending}
 							onClick={handleEditPost}
 						/>
 					</div>

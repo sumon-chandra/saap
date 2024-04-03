@@ -10,10 +10,10 @@ import SaapModal from "../../../../components/ui/SaapModal";
 import PostFormHeader from "./PostFormHeader";
 import PostImage from "./PostImage";
 import InsertImageBtn from "./InsertImageBtn";
-import PostBtn from "./PostBtn";
 import PostTextarea from "./PostTextarea";
 import { PostsRefetchStoreType } from "@/src/types";
 import { useRefetchPosts } from "@/src/store/posts-store";
+import SaapButton from "@/src/components/ui/SaapButton";
 
 export interface PostProps {
 	body?: string;
@@ -158,7 +158,12 @@ const PostFormModal: FC<PostFormModalProps> = ({ isOpen, onClose }) => {
 
 				<div className="flex items-center justify-between">
 					<InsertImageBtn setFile={setFile} isLoading={imageLoading} />
-					<PostBtn handlePost={handlePost} isPending={isPending} />
+					<SaapButton
+						variant="action"
+						value="Post"
+						isLoading={isPending}
+						onClick={handlePost}
+					/>
 				</div>
 			</div>
 		</SaapModal>
