@@ -42,4 +42,5 @@ export interface SaapButtonProps {
 	variant: "default" | "action";
 	isLoading?: boolean;
 	type?: "button" | "submit" | "reset";
+	onClick?: () => void;
 }
