@@ -38,17 +38,15 @@ const PostContent: FC<PostContentProps> = ({ post }) => {
   return (
     <CardBody>
       <div className="flex flex-col gap-4">
-        <div>
-          <div>
-            {isPostBodyLarge ? (
-              <>
-                <span>{showFullBody ? post.body : slicedPostBody}</span>
-                {seeLessOrMoreButton()}
-              </>
-            ) : (
-              post.body
-            )}
-          </div>
+        <div className="whitespace-pre-wrap">
+          {isPostBodyLarge ? (
+            <>
+              <span>{showFullBody ? post.body : slicedPostBody}</span>
+              {seeLessOrMoreButton()}
+            </>
+          ) : (
+            post.body
+          )}
         </div>
         {post.image && (
           <div className="relative overflow-hidden rounded-2xl drop-shadow-xl w-fit mt-1.5 cursor-pointer">

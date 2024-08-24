@@ -17,7 +17,7 @@ export const useGetPosts = ({ profilePosts }: Props) => {
 		queryFn: async () => {
 			return await axios(PATH_URL).then((response) => response.data);
 		},
-		staleTime: 6000 * 5,
+		staleTime: Infinity,
 		gcTime: 6000 * 10,
 		placeholderData: keepPreviousData
 	});

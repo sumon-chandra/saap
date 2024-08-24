@@ -12,32 +12,27 @@ import { Toaster } from "sonner";
 import ProgressBar from "../components/ProgressBar";
 
 export interface ProvidersProps {
-	children: React.ReactNode;
-	themeProps?: ThemeProviderProps;
+  children: React.ReactNode;
+  themeProps?: ThemeProviderProps;
 }
 
 const queryClient = new QueryClient();
 
 export function Providers({ children, themeProps }: ProvidersProps) {
-	return (
-		<NextUIProvider>
-			<QueryClientProvider client={queryClient}>
-				<ReactQueryDevtools
-					initialIsOpen={false}
-				/>
-				<NextThemesProvider {...themeProps}>
-					<SessionProvider>
-						<EdgeStoreProvider>
-							<Toaster
-								richColors
-								position="top-center"
-							/>
-							<ProgressBar />
-							{children}
-						</EdgeStoreProvider>
-					</SessionProvider>
-				</NextThemesProvider>
-			</QueryClientProvider>
-		</NextUIProvider>
-	);
+  return (
+    <NextUIProvider>
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools initialIsOpen={false} />
+        <NextThemesProvider {...themeProps}>
+          <SessionProvider>
+            <EdgeStoreProvider>
+              <Toaster richColors position="top-center" />
+              <ProgressBar />
+              {children}
+            </EdgeStoreProvider>
+          </SessionProvider>
+        </NextThemesProvider>
+      </QueryClientProvider>
+    </NextUIProvider>
+  );
 }
