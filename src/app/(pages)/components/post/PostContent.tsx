@@ -51,14 +51,14 @@ const PostContent: FC<PostContentProps> = ({ post }) => {
           </div>
         </div>
         {post.image && (
-          <div className="relative overflow-hidden rounded-2xl drop-shadow-xl w-fit mt-2.5 cursor-pointer">
+          <div className="relative overflow-hidden rounded-2xl drop-shadow-xl w-fit mt-1.5 cursor-pointer">
             <Image
               loading="lazy"
               src={post.image}
               width={300}
               height={300}
               alt="Will add alt-text soon!"
-              className="object-contain max-h-[520px] w-max  rounded-2xl"
+              className="object-contain max-h-[320px] w-max  rounded-2xl"
             />
           </div>
         )}

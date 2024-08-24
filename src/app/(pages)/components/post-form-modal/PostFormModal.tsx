@@ -1,12 +1,5 @@
 "use client";
-import {
-  ChangeEvent,
-  FC,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { Divider } from "@nextui-org/react";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
@@ -15,7 +8,6 @@ import { useEdgeStore } from "../../../../lib/edgestore";
 import useAutosizeTextArea from "../../../../hooks/useAutosizeTextarea";
 import SaapModal from "../../../../components/ui/SaapModal";
 import PostFormHeader from "./PostFormHeader";
-import PostImage from "./PostImage";
 import InsertImageBtn from "./InsertImageBtn";
 import PostTextarea from "./PostTextarea";
 import { PostsRefetchStoreType } from "@/src/types";
@@ -40,19 +32,13 @@ interface PostFormModalProps {
 }
 
 const PostFormModal: FC<PostFormModalProps> = ({ isOpen, onClose }) => {
-  const [imageLoading, setImageLoading] = useState<boolean>(false);
   const [file, setFile] = useState<File | null>(null);
-  const [image, setImage] = useState<string | null>(null);
-  const [imageContainerVisible, setImageContainerVisible] = useState(false);
-  const { edgestore } = useEdgeStore();
   const [post, setPost] = useState<PostProps | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const { edgestore } = useEdgeStore();
 
   const setRefetchPosts = useRefetchPosts(
     (state: PostsRefetchStoreType) => state.setRefetchPosts
-  );
-
-  const refetchPosts = useRefetchPosts(
-    (state: PostsRefetchStoreType) => state.refetchPosts
   );
 
   // Autosize Textarea
@@ -60,7 +46,7 @@ const PostFormModal: FC<PostFormModalProps> = ({ isOpen, onClose }) => {
   useAutosizeTextArea(textareaRef.current, post?.body!);
 
   // Handle post with @tenstack/react-query
-  const { data, error, isPending, isError, isSuccess, mutate } = useMutation({
+  const { error, isPending, isError, isSuccess, mutate } = useMutation({
     mutationFn: (newPost: PostProps) => {
       return axios.post("/api/post", newPost);
     },
@@ -77,6 +63,9 @@ const PostFormModal: FC<PostFormModalProps> = ({ isOpen, onClose }) => {
     if (data?.image?.length! > 0) {
       // Upload Post image
       const res = await edgestore.publicFiles.upload({
+        onProgressChange: () => {
+          setIsLoading(true);
+        },
         file: data.image![0],
       });
 
@@ -91,8 +80,8 @@ const PostFormModal: FC<PostFormModalProps> = ({ isOpen, onClose }) => {
     }
 
     // Create new post
-    // Check if the post body and image are in there
     if (newPost.body || newPost.image) {
+      setIsLoading(false);
       setPost(newPost);
       await mutate(newPost);
     } else {
@@ -108,12 +97,13 @@ const PostFormModal: FC<PostFormModalProps> = ({ isOpen, onClose }) => {
       methods.reset();
       setFile(null);
       setPost(null);
-      setImageContainerVisible(false);
       onClose(); // Close the modal window
       setRefetchPosts(true);
+      setIsLoading(false);
     }
     if (isError) {
       toast.error("Something went wrong, please try again!!");
+      setIsLoading(false);
       console.log(error);
     }
   }, [error, isError, isSuccess, onClose]);
@@ -123,7 +113,7 @@ const PostFormModal: FC<PostFormModalProps> = ({ isOpen, onClose }) => {
     setPost(null);
     methods.reset();
     setFile(null);
-    setImageContainerVisible(false);
+    setIsLoading(false);
   }, [onClose]);
 
   return (
@@ -139,7 +129,7 @@ const PostFormModal: FC<PostFormModalProps> = ({ isOpen, onClose }) => {
         {/* Post Form */}
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(handleFormSubmit)}>
-            <PostTextarea disabled={isPending} minRow={4} />
+            <PostTextarea disabled={isPending || isLoading} minRow={4} />
 
             {file && (
               <Image
@@ -155,11 +145,11 @@ const PostFormModal: FC<PostFormModalProps> = ({ isOpen, onClose }) => {
             <Divider className="my-2" />
 
             <div className="flex items-center justify-between">
-              <InsertImageBtn setFile={setFile} isLoading={imageLoading} />
+              <InsertImageBtn setFile={setFile} />
               <SaapButton
                 variant="action"
                 value="Post"
-                isLoading={isPending}
+                isLoading={isPending || isLoading}
                 type="submit"
               />
             </div>

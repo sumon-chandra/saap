@@ -17,7 +17,7 @@ const SaapButton: FC<SaapButtonProps> = ({
       size="sm"
       type={type}
       disabled={isLoading}
-      isLoading={isLoading}
+      // isLoading={isLoading}
       className={clsx(
         "bg-saap-bg-secondary dark:bg-saap-bg-dark-secondary rounded font-semibold disabled:cursor-not-allowed disabled:opacity-50 text-sm",
         variant === "action" &&

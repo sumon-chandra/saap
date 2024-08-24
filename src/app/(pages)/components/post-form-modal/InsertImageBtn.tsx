@@ -1,13 +1,12 @@
-import clsx from "clsx";
 import { FC, SetStateAction } from "react";
 import { useFormContext } from "react-hook-form";
 import { IoImage } from "react-icons/io5";
 
 interface InsertImageBtnProps {
   setFile: (value: SetStateAction<File | null>) => void;
-  isLoading: boolean;
 }
-const InsertImageBtn: FC<InsertImageBtnProps> = ({ setFile, isLoading }) => {
+
+const InsertImageBtn: FC<InsertImageBtnProps> = ({ setFile }) => {
   const { register } = useFormContext();
   return (
     <label
