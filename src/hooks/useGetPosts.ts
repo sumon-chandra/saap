@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { FullPostTypes } from "../types";
 import axios from "axios";
 import { useSession } from "next-auth/react";
@@ -17,7 +17,9 @@ export const useGetPosts = ({ profilePosts }: Props) => {
 		queryFn: async () => {
 			return await axios(PATH_URL).then((response) => response.data);
 		},
-		staleTime: 60000,
+		staleTime: 6000 * 5,
+		gcTime: 6000 * 10,
+		placeholderData: keepPreviousData
 	});
 
 	return posts;

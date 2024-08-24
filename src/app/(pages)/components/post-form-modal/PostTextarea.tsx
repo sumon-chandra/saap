@@ -1,32 +1,26 @@
 import { Textarea } from "@nextui-org/react";
-import { ChangeEvent, FC } from "react";
-import { PostProps } from "./PostFormModal";
+import { FC } from "react";
+import { PostTextareaProps } from "@/src/types";
+import { useFormContext } from "react-hook-form";
 
-interface PostTextareaProps {
-	onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-	value?: string;
-	disabled?: boolean;
-	defaultValue?: PostProps;
-	minRow: number;
-}
-
-const PostTextarea: FC<PostTextareaProps> = ({ disabled, onChange, value, defaultValue, minRow }) => {
-	return (
-		<Textarea
-			onChange={(e) => onChange(e)}
-			value={value}
-			defaultValue={defaultValue?.body}
-			placeholder="Create a new post..."
-			disabled={disabled}
-			disableAnimation
-			autoFocus
-			minRows={minRow}
-			classNames={{
-				input: "bg-saap-transparent no-scrollbar",
-				inputWrapper: "pt-4 bg-saap-transparent data-[hover=true]:bg-saap-transparent group-data-[focus=true]:bg-saap-transparent group-data-[focus-visible=true]:ring-0 group-data-[focus-visible=true]:ring-offset-0",
-			}}
-		/>
-	);
+const PostTextarea: FC<PostTextareaProps> = ({ disabled, value, minRow }) => {
+  const { register } = useFormContext();
+  return (
+    <Textarea
+      placeholder="What's in your mind?"
+      defaultValue=""
+      disabled={disabled}
+      disableAnimation
+      autoFocus
+      minRows={minRow}
+      {...register("body")}
+      classNames={{
+        input: "bg-saap-transparent no-scrollbar",
+        inputWrapper:
+          "pt-4 bg-saap-transparent data-[hover=true]:bg-saap-transparent group-data-[focus=true]:bg-saap-transparent group-data-[focus-visible=true]:ring-0 group-data-[focus-visible=true]:ring-offset-0",
+      }}
+    />
+  );
 };
 
 export default PostTextarea;

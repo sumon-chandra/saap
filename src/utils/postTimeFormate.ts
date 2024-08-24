@@ -19,24 +19,24 @@ export function postTimeFormate(timeStamp: Date) {
 	const yearsDiff = differenceInYears(now, timeStamp);
 
 	if (secondsDiff < 60) {
-		return `${secondsDiff}s ago`;
+		return `${secondsDiff} s ago`;
 	} else if (minutesDiff < 60) {
-		return `${minutesDiff}m ago`;
+		return `${minutesDiff} m ago`;
 	} else if (hoursDiff < 24) {
-		return `${hoursDiff}h ago`;
+		return `${hoursDiff} h ago`;
 	} else if (daysDiff < 2) {
-		return `${daysDiff}day ago`;
+		return `${daysDiff} day ago`;
 	} else if (daysDiff < 7) {
-		return `${daysDiff}days ago`;
+		return `${daysDiff} days ago`;
 	} else if (weeksDiff < 2) {
-		return `${weeksDiff}week ago`;
+		return `${weeksDiff} week ago`;
 	} else if (weeksDiff < 8) {
-		return `${weeksDiff}weeks ago`;
+		return `${weeksDiff} weeks ago`;
 	} else if (monthsDiff < 2) {
-		return `${monthsDiff}month ago`;
+		return `${monthsDiff} month ago`;
 	} else if (monthsDiff <= 12) {
-		return `${monthsDiff}months ago`;
+		return `${monthsDiff} months ago`;
 	} else {
-		return `${yearsDiff}years ago`;
+		return `${yearsDiff} years ago`;
 	}
 }

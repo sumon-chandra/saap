@@ -7,7 +7,11 @@ export async function POST(request: Request) {
 	try {
 		const responseBody = await request.json();
 		const { body, image } = responseBody;
+
 		const user = await getLoggedUser();
+
+		console.log({ body, image });
+
 
 		if (!body) {
 			return new NextResponse("Post's cannot be empty!!", { status: 401 });
