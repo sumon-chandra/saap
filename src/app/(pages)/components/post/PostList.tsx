@@ -1,8 +1,6 @@
 "use client";
 import SinglePost from "./Post";
-import { FullPostTypes, PostsRefetchStoreType } from "../../../../types";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import { PostsRefetchStoreType } from "../../../../types";
 import PostSkeleton from "./PostSkeleton";
 import { useRefetchPosts } from "@/src/store/posts-store";
 import { FC } from "react";

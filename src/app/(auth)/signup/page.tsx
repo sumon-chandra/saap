@@ -1,27 +1,22 @@
 "use client";
+
 import InputBox from "../../../app/(auth)/components/InputBox";
-import { Button, Divider } from "@nextui-org/react";
-import axios from "axios";
-import { signIn, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { toast } from "sonner";
-import { socialLogin } from "../_actions/authActions";
+import { handleRegistration, socialLogin } from "../_actions/authActions";
 import SocialAuthButton from "../../../app/(auth)/components/SocialAuthButton";
-import { FcGoogle } from "react-icons/fc";
+
 // import { useRouter } from "next/navigation"
 import { useRouter } from "next-nprogress-bar"; // This useRouter will helps us to display the progress bar on the top.
-import { PiSpinnerLight } from "react-icons/pi";
+import AuthButton from "../components/auth-button";
+import { toast } from "sonner";
 
 const SignupPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSocialBtnLoading, setIsSocialBtnLoading] = useState(false);
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const router = useRouter();
-
-  const handleRedirect = () => {
-    router.push("/login");
-  };
 
   const {
     register,
@@ -37,116 +32,78 @@ const SignupPage = () => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    axios
-      .post("/api/register", data)
-      .then(async (response) => {
-        toast.success(`Welcome ${response?.data?.name} !!`);
-        reset();
-        const signInResponse = await signIn("credentials", data);
-        console.log(signInResponse);
-      })
-      .catch((error: any) => {
-        console.log("Registration error :", error);
-        if (error?.response?.data !== "") {
-          toast.error(error?.response?.data);
-        } else {
-          toast.error("Registration failed!!");
-        }
-        setIsLoading(false);
-      })
-      .finally(() => setIsLoading(false));
+    const response = await handleRegistration(data, setIsLoading);
+    if (response?.status !== 200) {
+      toast.error("Registration failed, please try again!");
+      return;
+    }
+    toast.success("Registration successful, you can now login!");
+    reset();
+    router.push("/");
   };
 
-  const handleSocialLogin = (action: string) => {
-    setIsSocialBtnLoading(true);
-    signIn(action, { redirect: false })
-      .then((response) => {
-        if (response?.error) {
-          toast.error("Something went wrong, Try Again!");
-        }
-        if (response?.ok) {
-          toast.success("Logged in successfully");
-          router.push("/");
-        }
-      })
-      .catch(() => {
-        toast.error("Something went wrong, Please try again");
-        setIsSocialBtnLoading(false);
-      })
-      .finally(() => setIsSocialBtnLoading(false));
+  const handleSocialLogin = async (action: string) => {
+    const response = await socialLogin(action, setIsSocialBtnLoading);
+    if (response?.error) {
+      toast.error("Something went wrong, Try Again!");
+      return;
+    }
+    toast.success("Logged in successfully");
+    router.push("/");
   };
 
   return (
-    <div className="relative">
-      <div className="max-w-[400px] mx-auto">
-        <div className="text-center font-bold text-saap-text-primary dark:text-saap-text-dark-primary">
-          <div className="text-3xl ">
-            Welcome to <span className="text-saap-primary">Saap.</span>
-          </div>
-          <p className="text-saap-text-secondary dark:text-saap-text-dark-secondary">
-            Signup to Saap.
-          </p>
+    <div className="w-[25rem] mx-auto dark:bg-saap-bg-dark-secondary p-4 border border-saap-primary shadow shadow-secondary-100 rounded-md">
+      <div className="text-center font-bold text-saap-text-primary dark:text-saap-text-dark-primary">
+        <div className="text-xl">
+          Welcome to <span className="text-saap-primary">Saap.</span>
         </div>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <InputBox
-            label="Name"
-            type="text"
-            errors={errors}
-            id="name"
-            register={register}
-          />
-          <InputBox
-            label="Email"
-            register={register}
-            errors={errors}
-            id="email"
-            type="email"
-          />
-          <InputBox
-            label="Password"
-            register={register}
-            errors={errors}
-            id="password"
-            type="password"
-          />
-          <div className="w-full mt-4">
-            <Button
-              type="submit"
-              variant="ghost"
-              className="w-full flex items-center justify-center gap-2 bg-saap-transparent hover:!bg-saap-transparent py-6 font-bold md:text-xl disabled:opacity-50 disabled:cursor-not-allowed text-lg rounded"
-              disabled={isLoading || status === "loading"}
-              disableAnimation
-            >
-              {isLoading ? (
-                <PiSpinnerLight size={18} className="animate-spin" />
-              ) : null}
-              <span>Signup</span>
-            </Button>
-          </div>
-        </form>
-        <div className="flex items-center justify-center gap-5 mt-5">
-          <Divider orientation="horizontal" className="w-20" />
-          <span>Or</span>
-          <Divider orientation="horizontal" className="w-20" />
-        </div>
-        <div className="mt-5 space-y-2">
-          <SocialAuthButton
-            icon={FcGoogle}
-            onClick={() => handleSocialLogin("google")}
-            isLoading={isSocialBtnLoading}
-            disabled={isLoading || status === "loading"}
-          >
-            Continue with
-          </SocialAuthButton>
-        </div>
-        <div className="flex justify-center gap-2 px-2 mt-6 text-sm text-gray-500">
-          <div>Already have an account?</div>
-          <div
-            onClick={handleRedirect}
-            className="font-semibold text-saap-text-secondary dark:text-saap-text-dark-secondary underline cursor-pointer"
-          >
-            Please Login
-          </div>
+        <p className="text-saap-text-secondary dark:text-saap-text-dark-secondary">
+          Signup to Saap.
+        </p>
+      </div>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 mt-8">
+        <InputBox
+          label="Name"
+          type="text"
+          errors={errors}
+          id="name"
+          register={register}
+          placeholder="Enter name..."
+        />
+        <InputBox
+          label="Email"
+          register={register}
+          errors={errors}
+          id="email"
+          type="email"
+          placeholder="Enter email..."
+        />
+        <InputBox
+          label="Password"
+          register={register}
+          errors={errors}
+          id="password"
+          type="password"
+          placeholder="Enter password..."
+        />
+
+        <AuthButton isLoading={isLoading || status === "loading"} variant="Signup" />
+      </form>
+      <div className="mt-4">
+        <SocialAuthButton
+          onClick={() => handleSocialLogin("google")}
+          disabled={isLoading || status === "loading"}
+          isLoading={isSocialBtnLoading}
+        />
+      </div>
+      <div className="flex justify-center gap-2 px-2 mt-4 text-xs text-gray-500">
+        <div>Already have an account?</div>
+        <div
+          onClick={() => router.push("/login")}
+          className="font-semibold text-saap-text-secondary dark:text-saap-text-dark-secondary underline cursor-pointer"
+        >
+          Please Login
         </div>
       </div>
     </div>
