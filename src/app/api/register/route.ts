@@ -9,6 +9,7 @@ export async function POST(request: Request) {
 
 		const { name, email, password } = body;
 
+		console.log({ email, password, name });
 		if (!email || !password || !name) {
 			return new NextResponse("Invalid Credentials!!", {
 				status: 401,

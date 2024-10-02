@@ -5,12 +5,14 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { handleRegistration, socialLogin } from "../_actions/authActions";
-import SocialAuthButton from "../../../app/(auth)/components/SocialAuthButton";
 
 // import { useRouter } from "next/navigation"
 import { useRouter } from "next-nprogress-bar"; // This useRouter will helps us to display the progress bar on the top.
 import AuthButton from "../components/auth-button";
 import { toast } from "sonner";
+import { HiOutlineMailOpen } from "react-icons/hi";
+import { PiPasswordBold, PiSpinnerLight, PiUserBold } from "react-icons/pi";
+import { FaGoogle } from "react-icons/fa";
 
 const SignupPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -56,46 +58,50 @@ const SignupPage = () => {
     <div className="w-[25rem] mx-auto dark:bg-saap-bg-dark-secondary p-4 border border-saap-primary shadow shadow-secondary-100 rounded-md">
       <div className="text-center font-bold text-saap-text-primary dark:text-saap-text-dark-primary">
         <div className="text-xl">
-          Welcome to <span className="text-saap-primary">Saap.</span>
+          Signup to <span className="text-saap-primary">Saap.</span>
         </div>
-        <p className="text-saap-text-secondary dark:text-saap-text-dark-secondary">
-          Signup to Saap.
-        </p>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 mt-8">
         <InputBox
           label="Name"
           type="text"
-          errors={errors}
-          id="name"
           register={register}
           placeholder="Enter name..."
+          Icon={PiUserBold}
+          name="name"
         />
         <InputBox
           label="Email"
           register={register}
-          errors={errors}
-          id="email"
           type="email"
           placeholder="Enter email..."
+          Icon={HiOutlineMailOpen}
+          name="email"
         />
         <InputBox
           label="Password"
           register={register}
-          errors={errors}
-          id="password"
           type="password"
           placeholder="Enter password..."
+          Icon={PiPasswordBold}
+          name="password"
         />
 
-        <AuthButton isLoading={isLoading || status === "loading"} variant="Signup" />
+        <AuthButton isLoading={isLoading || status === "loading"}>
+          {isLoading && <PiSpinnerLight size={18} className="animate-spin" />}
+          <span>Signup</span>
+        </AuthButton>
       </form>
       <div className="mt-4">
-        <SocialAuthButton
+        <AuthButton
+          socialBtn
+          isLoading={isLoading || status === "loading"}
           onClick={() => handleSocialLogin("google")}
-          disabled={isLoading || status === "loading"}
-          isLoading={isSocialBtnLoading}
-        />
+        >
+          {isSocialBtnLoading && <PiSpinnerLight size={18} className="animate-spin" />}
+          <FaGoogle size={14} />
+          <span>Continue with Google</span>
+        </AuthButton>
       </div>
       <div className="flex justify-center gap-2 px-2 mt-4 text-xs text-gray-500">
         <div>Already have an account?</div>
